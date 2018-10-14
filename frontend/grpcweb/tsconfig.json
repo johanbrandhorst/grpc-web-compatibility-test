@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "allowJs": true,
+        "outDir": "./dist",
+    },
+    "include": [
+        "client.ts",
+        "proto/echo_pb.d.ts",
+        "proto/echo_grpc_web_pb.d.ts",
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

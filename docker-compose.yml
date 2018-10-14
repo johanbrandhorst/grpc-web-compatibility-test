@@ -1,0 +1,37 @@
+version: '3'
+services:
+  echo-server:
+    build:
+      context: ./
+      dockerfile: ./backend/Dockerfile
+    command:
+      - --grpc_port=9090
+    expose:
+      - "9090"
+  grpcwebproxy:
+    build:
+      context: ./
+      dockerfile: ./proxy/grpcwebproxy/Dockerfile
+    ports:
+      - "8080:8080"
+    command:
+      - --backend_addr=dns:///echo-server:9090
+      - --backend_tls_noverify=true
+      - --run_tls_server=false
+      - --use_websockets=true
+    links:
+      - echo-server
+  envoy:
+    build:
+      context: ./
+      dockerfile: ./proxy/envoy/Dockerfile
+    ports:
+      - "8080:8080"
+    links:
+      - echo-server
+  improbable:
+    build:
+      context: ./
+      dockerfile: ./frontend/improbable/Dockerfile
+    ports:
+      - "80:10000"
