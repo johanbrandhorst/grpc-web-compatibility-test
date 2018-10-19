@@ -16,6 +16,8 @@ syntax = "proto3";
 
 package grpc.gateway.testing;
 
+import "google/protobuf/duration.proto";
+
 message Empty {
 }
 
@@ -37,9 +39,9 @@ message ServerStreamingEchoRequest {
   // closes the stream; default is 10.
   int32 message_count = 2;
 
-  // The interval (ms) between two server messages. The server implementation
+  // The interval between two server messages. The server implementation
   // may enforce some minimum interval (e.g. 100ms) to avoid message overflow.
-  int32 message_interval = 3;
+  google.protobuf.Duration message_interval = 3;
 }
 
 // Response type for server streaming response.

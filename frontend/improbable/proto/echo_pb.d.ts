@@ -2,6 +2,7 @@
 // file: echo.proto
 
 import * as jspb from "google-protobuf";
+import * as google_protobuf_duration_pb from "google-protobuf/google/protobuf/duration_pb";
 
 export class Empty extends jspb.Message {
   serializeBinary(): Uint8Array;
@@ -70,8 +71,10 @@ export class ServerStreamingEchoRequest extends jspb.Message {
   getMessageCount(): number;
   setMessageCount(value: number): void;
 
-  getMessageInterval(): number;
-  setMessageInterval(value: number): void;
+  hasMessageInterval(): boolean;
+  clearMessageInterval(): void;
+  getMessageInterval(): google_protobuf_duration_pb.Duration | undefined;
+  setMessageInterval(value?: google_protobuf_duration_pb.Duration): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ServerStreamingEchoRequest.AsObject;
@@ -87,7 +90,7 @@ export namespace ServerStreamingEchoRequest {
   export type AsObject = {
     message: string,
     messageCount: number,
-    messageInterval: number,
+    messageInterval?: google_protobuf_duration_pb.Duration.AsObject,
   }
 }
 

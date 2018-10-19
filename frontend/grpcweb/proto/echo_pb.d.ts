@@ -44,8 +44,8 @@ export class ServerStreamingEchoRequest {
   setMessage(a: string): void;
   getMessageCount(): number;
   setMessageCount(a: number): void;
-  getMessageInterval(): number;
-  setMessageInterval(a: number): void;
+  getMessageInterval(): {};
+  setMessageInterval(a: {}): void;
   serializeBinary(): Uint8Array;
   static deserializeBinary: (bytes: {}) => ServerStreamingEchoRequest;
 }

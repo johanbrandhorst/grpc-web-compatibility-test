@@ -11,6 +11,7 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
+var google_protobuf_duration_pb = require('google-protobuf/google/protobuf/duration_pb.js');
 goog.exportSymbol('proto.grpc.gateway.testing.ClientStreamingEchoRequest', null, global);
 goog.exportSymbol('proto.grpc.gateway.testing.ClientStreamingEchoResponse', null, global);
 goog.exportSymbol('proto.grpc.gateway.testing.EchoRequest', null, global);
@@ -494,7 +495,7 @@ proto.grpc.gateway.testing.ServerStreamingEchoRequest.toObject = function(includ
   var f, obj = {
     message: jspb.Message.getFieldWithDefault(msg, 1, ""),
     messageCount: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    messageInterval: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    messageInterval: (f = msg.getMessageInterval()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -540,7 +541,8 @@ proto.grpc.gateway.testing.ServerStreamingEchoRequest.deserializeBinaryFromReade
       msg.setMessageCount(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = new google_protobuf_duration_pb.Duration;
+      reader.readMessage(value,google_protobuf_duration_pb.Duration.deserializeBinaryFromReader);
       msg.setMessageInterval(value);
       break;
     default:
@@ -587,10 +589,11 @@ proto.grpc.gateway.testing.ServerStreamingEchoRequest.serializeBinaryToWriter = 
     );
   }
   f = message.getMessageInterval();
-  if (f !== 0) {
-    writer.writeInt32(
+  if (f != null) {
+    writer.writeMessage(
       3,
-      f
+      f,
+      google_protobuf_duration_pb.Duration.serializeBinaryToWriter
     );
   }
 };
@@ -627,17 +630,32 @@ proto.grpc.gateway.testing.ServerStreamingEchoRequest.prototype.setMessageCount 
 
 
 /**
- * optional int32 message_interval = 3;
- * @return {number}
+ * optional google.protobuf.Duration message_interval = 3;
+ * @return {?proto.google.protobuf.Duration}
  */
 proto.grpc.gateway.testing.ServerStreamingEchoRequest.prototype.getMessageInterval = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+  return /** @type{?proto.google.protobuf.Duration} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_duration_pb.Duration, 3));
 };
 
 
-/** @param {number} value */
+/** @param {?proto.google.protobuf.Duration|undefined} value */
 proto.grpc.gateway.testing.ServerStreamingEchoRequest.prototype.setMessageInterval = function(value) {
-  jspb.Message.setProto3IntField(this, 3, value);
+  jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+proto.grpc.gateway.testing.ServerStreamingEchoRequest.prototype.clearMessageInterval = function() {
+  this.setMessageInterval(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.grpc.gateway.testing.ServerStreamingEchoRequest.prototype.hasMessageInterval = function() {
+  return jspb.Message.getField(this, 3) != null;
 };
 
 

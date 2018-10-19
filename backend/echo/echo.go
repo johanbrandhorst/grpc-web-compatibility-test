@@ -1,4 +1,4 @@
-// The echo package is written to as closely as possible
+// Package echo is written to as closely as possible
 // mirror the behaviour of the C++ implementation in grpc/grpc-web:
 // https://github.com/grpc/grpc-web/blob/92aa9f8fc8e7af4aadede52ea075dd5790a63b62/net/grpc/gateway/examples/echo/echo_service_impl.cc
 package echo
@@ -8,10 +8,10 @@ import (
 	"io"
 	"time"
 
+	"github.com/golang/protobuf/ptypes"
+	"github.com/johanbrandhorst/grpc-web-compatibility-test/backend/proto"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-
-	"github.com/johanbrandhorst/grpc-web-compatibility-test/backend/proto"
 )
 
 var _ echo.EchoServiceServer = (*Server)(nil)
@@ -40,11 +40,15 @@ func (s Server) NoOp(ctx context.Context, req *echo.Empty) (*echo.Empty, error) 
 // One request followed by a sequence of responses (streamed download).
 // The server will return the same client message repeatedly.
 func (s Server) ServerStreamingEcho(req *echo.ServerStreamingEchoRequest, srv echo.EchoService_ServerStreamingEchoServer) error {
+	d, err := ptypes.Duration(req.GetMessageInterval())
+	if err != nil {
+		return status.Error(codes.InvalidArgument, "invalid duration")
+	}
 	for i := int32(0); i < req.GetMessageCount(); i++ {
 		select {
 		case <-srv.Context().Done():
-			return status.Error(codes.Canceled, "")
-		case <-time.After(time.Duration(req.GetMessageInterval()) * time.Millisecond):
+			return status.FromContextError(srv.Context().Err()).Err()
+		case <-time.After(d):
 		}
 		err := srv.Send(&echo.ServerStreamingEchoResponse{
 			Message: req.GetMessage(),
