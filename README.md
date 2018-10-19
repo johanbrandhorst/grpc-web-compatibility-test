@@ -4,27 +4,38 @@ Test various implementations of gRPC-Web Clients with various implementations of
 ## Definitions
 
 * `improbable`
+
     The client created by Improbable, leveraging Fetch/XHR,
     available at https://github.com/improbable-eng/grpc-web/tree/master/ts.
     It uses the `application/grpc-web+proto` content-type.
+
 * `improbable-ws`
-    The client created by Improbable, leveraging websockets,
+
+    The client created by Improbable, leveraging a custom websocket transport,
     available at https://github.com/improbable-eng/grpc-web/tree/master/ts.
     It uses the `application/grpc-web+proto` content-type.
+
 * `grpcwebproxy`
+
     The proxy created by Improbable,
     available at https://github.com/improbable-eng/grpc-web/tree/master/go/grpcwebproxy.
     It supports both Fetch/XHR and websockets transports.
     It supports the `application/grpc-web+proto` content-type only.
-* `grpcweb`,
+
+* `grpcweb`
+
     The client created by Google and the gRPC organisation,
     available at https://github.com/grpc/grpc-web.
     It uses XHR and the `application/grpc-web+proto` content-type.
+
 * `grpcwebtext`
+
     The client created by Google and the gRPC organisation,
     available at https://github.com/grpc/grpc-web.
     It uses XHR and the `application/grpc-web-text` content-type.
+
 * `envoy`
+
     The Envoy Proxy HTTP filter implementation created for the `grpc/grpc-web` project,
     available at https://github.com/envoyproxy/envoy/tree/master/source/extensions/filters/http/grpc_web.
     It supports XHR and both the `application/grpc-web+proto` and `application/grpc-web-text` content-types.
