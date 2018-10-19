@@ -1,57 +1,98 @@
-import {grpc} from "grpc-web-client";
-import {EchoServiceClient, ServiceError} from "../proto/echo_pb_service";
-import { EchoRequest, EchoResponse } from "../proto/echo_pb";
+import { grpc } from "grpc-web-client";
+import { Code } from "grpc-web-client/dist/Code";
+import { Duration } from "google-protobuf/google/protobuf/duration_pb";
+import { EchoServiceClient, ServiceError, Status } from "../proto/echo_pb_service";
+import { EchoRequest, EchoResponse, ServerStreamingEchoRequest, ServerStreamingEchoResponse } from "../proto/echo_pb";
 
 const host = "http://localhost:8080";
-var client = new EchoServiceClient(host);
+var client = new EchoServiceClient(host, { transport: grpc.DefaultTransportFactory, debug: true });
 
-const echoRequest = new EchoRequest();
-echoRequest.setMessage("test")
-client.echo(echoRequest, function(err: ServiceError, response: EchoResponse | null) {
-  if (err) /* YOLO truthy */ {
-    console.log(err)
-  } else {
-    console.log(response!.getMessage(), response!.getMessageCount())
-  }
-});
-
-/*
-  const getBookRequest = new GetBookRequest();
-  getBookRequest.setIsbn(60929871);
-  grpc.unary(BookService.GetBook, {
-    request: getBookRequest,
-    host: host,
-    onEnd: res => {
-      const { status, statusMessage, headers, message, trailers } = res;
-      console.log("getBook.onEnd.status", status, statusMessage);
-      console.log("getBook.onEnd.headers", headers);
-      if (status === grpc.Code.OK && message) {
-        console.log("getBook.onEnd.message", message.toObject());
-      }
-      console.log("getBook.onEnd.trailers", trailers);
-      queryBooks();
+function makeEchoRequest() {
+  const req = new EchoRequest();
+  req.setMessage("test")
+  client.echo(req, function (err: ServiceError, resp: EchoResponse | null) {
+    if (err) /* YOLO truthy */ {
+      console.log("Unary error")
+      console.log("Error:", err.message)
+      console.log("Code:", err.code)
+      console.log("Metadata:", err.metadata)
+    } else {
+      console.log("Unary success")
+      console.log("Message:", resp!.getMessage())
     }
   });
-}
+};
 
-getBook();
+makeEchoRequest();
 
-function queryBooks() {
-  const queryBooksRequest = new QueryBooksRequest();
-  queryBooksRequest.setAuthorPrefix("Geor");
-  const client = grpc.client(BookService.QueryBooks, {
-    host: host,
+function makeEchoAbortRequest() {
+  const req = new EchoRequest();
+  req.setMessage("test")
+  client.echoAbort(req, function (err: ServiceError, resp: EchoResponse | null) {
+    if (err) /* YOLO truthy */ {
+      console.log("Unary error (as expected)")
+      console.log("Error:", err.message)
+      console.log("Code:", err.code)
+      console.log("Metadata:", err.metadata)
+    } else {
+      console.log("Unary success")
+      console.log("Message:", resp!.getMessage())
+    }
   });
-  client.onHeaders((headers: grpc.Metadata) => {
-    console.log("queryBooks.onHeaders", headers);
-  });
-  client.onMessage((message: Book) => {
-    console.log("queryBooks.onMessage", message.toObject());
-  });
-  client.onEnd((code: grpc.Code, msg: string, trailers: grpc.Metadata) => {
-    console.log("queryBooks.onEnd", code, msg, trailers);
-  });
-  client.start();
-  client.send(queryBooksRequest);
-}
-*/
+};
+
+makeEchoAbortRequest();
+
+function makeServerStreamingEchoRequest() {
+  const req = new ServerStreamingEchoRequest();
+  req.setMessageCount(5)
+  var interval = new Duration
+  interval.setSeconds(1)
+  req.setMessageInterval(interval)
+  req.setMessage("test")
+  const srv = client.serverStreamingEcho(req);
+  srv.on('data', function (msg: ServerStreamingEchoResponse) {
+    console.log("Streaming success")
+    console.log("Message:", msg.getMessage())
+  })
+  srv.on("end", function () {
+    console.log("Server stream finished")
+  })
+  srv.on("status", function (status: Status) {
+    if (status.code != Code.OK) {
+      console.log("Got streaming error")
+      console.log("Error:", status.details)
+      console.log("Code:", status.code)
+      console.log("Metadata:", status.metadata)
+    }
+  })
+};
+
+makeServerStreamingEchoRequest();
+
+function makeServerStreamingEchoAbortRequest() {
+  const req = new ServerStreamingEchoRequest();
+  req.setMessageCount(5)
+  var interval = new Duration
+  interval.setSeconds(1)
+  req.setMessageInterval(interval)
+  req.setMessage("test")
+  const srv = client.serverStreamingEchoAbort(req);
+  srv.on('data', function (msg: ServerStreamingEchoResponse) {
+    console.log("Streaming success")
+    console.log("Message:", msg.getMessage())
+  })
+  srv.on("end", function () {
+    console.log("Server stream finished")
+  })
+  srv.on("status", function (status: Status) {
+    if (status.code != Code.OK) {
+      console.log("Got streaming error (as expected)")
+      console.log("Error:", status.details)
+      console.log("Code:", status.code)
+      console.log("Metadata:", status.metadata)
+    }
+  })
+};
+
+makeServerStreamingEchoAbortRequest();

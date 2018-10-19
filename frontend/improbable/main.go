@@ -16,6 +16,6 @@ func main() {
 	flag.Parse()
 	addr := fmt.Sprintf("0.0.0.0:%d", *port)
 
-	log.Println("Serving on ", addr)
+	log.Print("Serving on http://", addr)
 	http.ListenAndServe(addr, http.FileServer(http.Dir(*rootDir)))
 }
