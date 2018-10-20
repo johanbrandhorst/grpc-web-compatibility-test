@@ -66,8 +66,8 @@ Footnote: The websocket transport is not part of the grpc-web spec.
 
 | Proxy / Client | `improbable` | `improbable-ws` | `grpcweb` | `grpcwebtext` |
 |----------------|--------------|-----------------|-----------|---------------|
-| `grpcwebproxy` | ✔️            | ✔️               | ✔️         | ❌ [(issue)](https://github.com/improbable-eng/grpc-web/issues/254) |
-| `envoy`        | ✔            | ❌              | ✔️         | ✔             |
+| `grpcwebproxy` | ✔️️            | ✔️️               | ✔️️         | ❌ [(issue)](https://github.com/improbable-eng/grpc-web/issues/254) |
+| `envoy`        | ✔️            | ❌              | ✔️️         | ✔️             |
 
 Footnote: `improbable-ws` implements a non-standard websocket transport.
 
@@ -75,7 +75,7 @@ Footnote: `improbable-ws` implements a non-standard websocket transport.
 
 | Client / Feature | `application/grpc-web+proto` | `application/grpc-web-text` | Unary+Server Streams | Client+Bidi streaming |
 |------------------|------------------------------|-----------------------------|----------------------|-----------------------|
-| `improbable`     | ✔                 ️           | ❌                          | ✔                    | ❌                    |
-| `improbable-ws`  | ✔                 ️           | ❌                          | ✔                    | ✔️                     |
-| `grpcweb`        | ✔   ️                         | ❌                          | ✔                    | ❌                    |
-| `grpcwebtext`    | ❌   ️                        | ✔️                           | ✔                    | ❌                    |
+| `improbable`     | ✔️                 ️           | ❌                          | ✔️                    | ❌                    |
+| `improbable-ws`  | ✔️                 ️           | ❌                          | ✔️                    | ✔️️                     |
+| `grpcweb`        | ✔️   ️                         | ❌                          | ✔️                    | ❌                    |
+| `grpcwebtext`    | ❌   ️                        | ✔️️                           | ✔️                    | ❌                    |
