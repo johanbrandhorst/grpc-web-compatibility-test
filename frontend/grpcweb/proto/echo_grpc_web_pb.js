@@ -278,6 +278,23 @@ proto.grpc.gateway.testing.EchoServiceClient.prototype.serverStreamingEcho =
 
 
 /**
+ * @param {!proto.grpc.gateway.testing.ServerStreamingEchoRequest} request The request proto
+ * @param {!Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.grpc.gateway.testing.ServerStreamingEchoResponse>}
+ *     The XHR Node Readable Stream
+ */
+proto.grpc.gateway.testing.EchoServicePromiseClient.prototype.serverStreamingEcho =
+    function(request, metadata) {
+  return this.delegateClient_.client_.serverStreaming(this.delegateClient_.hostname_ +
+      '/grpc.gateway.testing.EchoService/ServerStreamingEcho',
+      request,
+      metadata,
+      methodInfo_ServerStreamingEcho);
+};
+
+
+/**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
  *   !proto.grpc.gateway.testing.ServerStreamingEchoRequest,
@@ -303,6 +320,23 @@ const methodInfo_ServerStreamingEchoAbort = new grpc.web.AbstractClientBase.Meth
 proto.grpc.gateway.testing.EchoServiceClient.prototype.serverStreamingEchoAbort =
     function(request, metadata) {
   return this.client_.serverStreaming(this.hostname_ +
+      '/grpc.gateway.testing.EchoService/ServerStreamingEchoAbort',
+      request,
+      metadata,
+      methodInfo_ServerStreamingEchoAbort);
+};
+
+
+/**
+ * @param {!proto.grpc.gateway.testing.ServerStreamingEchoRequest} request The request proto
+ * @param {!Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.grpc.gateway.testing.ServerStreamingEchoResponse>}
+ *     The XHR Node Readable Stream
+ */
+proto.grpc.gateway.testing.EchoServicePromiseClient.prototype.serverStreamingEchoAbort =
+    function(request, metadata) {
+  return this.delegateClient_.client_.serverStreaming(this.delegateClient_.hostname_ +
       '/grpc.gateway.testing.EchoService/ServerStreamingEchoAbort',
       request,
       metadata,

@@ -90,13 +90,31 @@ export class EchoService {
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
 export type Status = { details: string, code: number; metadata: grpc.Metadata }
-export type ServiceClientOptions = { transport: grpc.TransportConstructor; debug?: boolean }
+export type ServiceClientOptions = { transport?: grpc.TransportConstructor; debug?: boolean }
 
+interface UnaryResponse {
+  cancel(): void;
+}
 interface ResponseStream<T> {
   cancel(): void;
   on(type: 'data', handler: (message: T) => void): ResponseStream<T>;
   on(type: 'end', handler: () => void): ResponseStream<T>;
   on(type: 'status', handler: (status: Status) => void): ResponseStream<T>;
+}
+interface RequestStream<T> {
+  write(message: T): RequestStream<T>;
+  end(): void;
+  cancel(): void;
+  on(type: 'end', handler: () => void): RequestStream<T>;
+  on(type: 'status', handler: (status: Status) => void): RequestStream<T>;
+}
+interface BidirectionalStream<ReqT, ResT> {
+  write(message: ReqT): BidirectionalStream<ReqT, ResT>;
+  end(): void;
+  cancel(): void;
+  on(type: 'data', handler: (message: ResT) => void): BidirectionalStream<ReqT, ResT>;
+  on(type: 'end', handler: () => void): BidirectionalStream<ReqT, ResT>;
+  on(type: 'status', handler: (status: Status) => void): BidirectionalStream<ReqT, ResT>;
 }
 
 export class EchoServiceClient {
@@ -106,34 +124,34 @@ export class EchoServiceClient {
   echo(
     requestMessage: echo_pb.EchoRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError, responseMessage: echo_pb.EchoResponse|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: echo_pb.EchoResponse|null) => void
+  ): UnaryResponse;
   echo(
     requestMessage: echo_pb.EchoRequest,
-    callback: (error: ServiceError, responseMessage: echo_pb.EchoResponse|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: echo_pb.EchoResponse|null) => void
+  ): UnaryResponse;
   echoAbort(
     requestMessage: echo_pb.EchoRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError, responseMessage: echo_pb.EchoResponse|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: echo_pb.EchoResponse|null) => void
+  ): UnaryResponse;
   echoAbort(
     requestMessage: echo_pb.EchoRequest,
-    callback: (error: ServiceError, responseMessage: echo_pb.EchoResponse|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: echo_pb.EchoResponse|null) => void
+  ): UnaryResponse;
   noOp(
     requestMessage: echo_pb.Empty,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError, responseMessage: echo_pb.Empty|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: echo_pb.Empty|null) => void
+  ): UnaryResponse;
   noOp(
     requestMessage: echo_pb.Empty,
-    callback: (error: ServiceError, responseMessage: echo_pb.Empty|null) => void
-  ): void;
+    callback: (error: ServiceError|null, responseMessage: echo_pb.Empty|null) => void
+  ): UnaryResponse;
   serverStreamingEcho(requestMessage: echo_pb.ServerStreamingEchoRequest, metadata?: grpc.Metadata): ResponseStream<echo_pb.ServerStreamingEchoResponse>;
   serverStreamingEchoAbort(requestMessage: echo_pb.ServerStreamingEchoRequest, metadata?: grpc.Metadata): ResponseStream<echo_pb.ServerStreamingEchoResponse>;
-  clientStreamingEcho(): void;
-  fullDuplexEcho(): void;
-  halfDuplexEcho(): void;
+  clientStreamingEcho(metadata?: grpc.Metadata): RequestStream<echo_pb.ClientStreamingEchoRequest>;
+  fullDuplexEcho(metadata?: grpc.Metadata): BidirectionalStream<echo_pb.EchoRequest, echo_pb.EchoResponse>;
+  halfDuplexEcho(metadata?: grpc.Metadata): BidirectionalStream<echo_pb.EchoRequest, echo_pb.EchoResponse>;
 }
 

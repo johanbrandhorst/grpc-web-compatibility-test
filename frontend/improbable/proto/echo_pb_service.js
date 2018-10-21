@@ -93,7 +93,7 @@ EchoServiceClient.prototype.echo = function echo(requestMessage, metadata, callb
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  grpc.unary(EchoService.Echo, {
+  var client = grpc.unary(EchoService.Echo, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
@@ -102,20 +102,29 @@ EchoServiceClient.prototype.echo = function echo(requestMessage, metadata, callb
     onEnd: function (response) {
       if (callback) {
         if (response.status !== grpc.Code.OK) {
-          callback(Object.assign(new Error(response.statusMessage), { code: response.status, metadata: response.trailers }), null);
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
         } else {
           callback(null, response.message);
         }
       }
     }
   });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
 };
 
 EchoServiceClient.prototype.echoAbort = function echoAbort(requestMessage, metadata, callback) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  grpc.unary(EchoService.EchoAbort, {
+  var client = grpc.unary(EchoService.EchoAbort, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
@@ -124,20 +133,29 @@ EchoServiceClient.prototype.echoAbort = function echoAbort(requestMessage, metad
     onEnd: function (response) {
       if (callback) {
         if (response.status !== grpc.Code.OK) {
-          callback(Object.assign(new Error(response.statusMessage), { code: response.status, metadata: response.trailers }), null);
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
         } else {
           callback(null, response.message);
         }
       }
     }
   });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
 };
 
 EchoServiceClient.prototype.noOp = function noOp(requestMessage, metadata, callback) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  grpc.unary(EchoService.NoOp, {
+  var client = grpc.unary(EchoService.NoOp, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
@@ -146,13 +164,22 @@ EchoServiceClient.prototype.noOp = function noOp(requestMessage, metadata, callb
     onEnd: function (response) {
       if (callback) {
         if (response.status !== grpc.Code.OK) {
-          callback(Object.assign(new Error(response.statusMessage), { code: response.status, metadata: response.trailers }), null);
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
         } else {
           callback(null, response.message);
         }
       }
     }
   });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
 };
 
 EchoServiceClient.prototype.serverStreamingEcho = function serverStreamingEcho(requestMessage, metadata) {
@@ -233,17 +260,136 @@ EchoServiceClient.prototype.serverStreamingEchoAbort = function serverStreamingE
   };
 };
 
-EchoService.prototype.clientStreamingEcho = function clientStreamingEcho() {
-  throw new Error("Bi-directional streaming is not currently supported");
-}
+EchoServiceClient.prototype.clientStreamingEcho = function clientStreamingEcho(metadata) {
+  var listeners = {
+    end: [],
+    status: []
+  };
+  var client = grpc.client(EchoService.ClientStreamingEcho, {
+    host: this.serviceHost,
+    metadata: metadata,
+    transport: this.options.transport
+  });
+  client.onEnd(function (status, statusMessage, trailers) {
+    listeners.end.forEach(function (handler) {
+      handler();
+    });
+    listeners.status.forEach(function (handler) {
+      handler({ code: status, details: statusMessage, metadata: trailers });
+    });
+    listeners = null;
+  });
+  return {
+    on: function (type, handler) {
+      listeners[type].push(handler);
+      return this;
+    },
+    write: function (requestMessage) {
+      if (!client.started) {
+        client.start(metadata);
+      }
+      client.send(requestMessage);
+      return this;
+    },
+    end: function () {
+      client.finishSend();
+    },
+    cancel: function () {
+      listeners = null;
+      client.close();
+    }
+  };
+};
 
-EchoService.prototype.fullDuplexEcho = function fullDuplexEcho() {
-  throw new Error("Client streaming is not currently supported");
-}
+EchoServiceClient.prototype.fullDuplexEcho = function fullDuplexEcho(metadata) {
+  var listeners = {
+    data: [],
+    end: [],
+    status: []
+  };
+  var client = grpc.client(EchoService.FullDuplexEcho, {
+    host: this.serviceHost,
+    metadata: metadata,
+    transport: this.options.transport
+  });
+  client.onEnd(function (status, statusMessage, trailers) {
+    listeners.end.forEach(function (handler) {
+      handler();
+    });
+    listeners.status.forEach(function (handler) {
+      handler({ code: status, details: statusMessage, metadata: trailers });
+    });
+    listeners = null;
+  });
+  client.onMessage(function (message) {
+    listeners.data.forEach(function (handler) {
+      handler(message);
+    })
+  });
+  client.start(metadata);
+  return {
+    on: function (type, handler) {
+      listeners[type].push(handler);
+      return this;
+    },
+    write: function (requestMessage) {
+      client.send(requestMessage);
+      return this;
+    },
+    end: function () {
+      client.finishSend();
+    },
+    cancel: function () {
+      listeners = null;
+      client.close();
+    }
+  };
+};
 
-EchoService.prototype.halfDuplexEcho = function halfDuplexEcho() {
-  throw new Error("Client streaming is not currently supported");
-}
+EchoServiceClient.prototype.halfDuplexEcho = function halfDuplexEcho(metadata) {
+  var listeners = {
+    data: [],
+    end: [],
+    status: []
+  };
+  var client = grpc.client(EchoService.HalfDuplexEcho, {
+    host: this.serviceHost,
+    metadata: metadata,
+    transport: this.options.transport
+  });
+  client.onEnd(function (status, statusMessage, trailers) {
+    listeners.end.forEach(function (handler) {
+      handler();
+    });
+    listeners.status.forEach(function (handler) {
+      handler({ code: status, details: statusMessage, metadata: trailers });
+    });
+    listeners = null;
+  });
+  client.onMessage(function (message) {
+    listeners.data.forEach(function (handler) {
+      handler(message);
+    })
+  });
+  client.start(metadata);
+  return {
+    on: function (type, handler) {
+      listeners[type].push(handler);
+      return this;
+    },
+    write: function (requestMessage) {
+      client.send(requestMessage);
+      return this;
+    },
+    end: function () {
+      client.finishSend();
+    },
+    cancel: function () {
+      listeners = null;
+      client.close();
+    }
+  };
+};
 
 exports.EchoServiceClient = EchoServiceClient;
 

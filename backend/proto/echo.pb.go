@@ -3,12 +3,10 @@
 
 package echo
 
-import (
-	fmt "fmt"
-	proto "github.com/golang/protobuf/proto"
-	duration "github.com/golang/protobuf/ptypes/duration"
-	math "math"
-)
+import proto "github.com/golang/protobuf/proto"
+import fmt "fmt"
+import math "math"
+import duration "github.com/golang/protobuf/ptypes/duration"
 
 import (
 	context "golang.org/x/net/context"
@@ -36,17 +34,16 @@ func (m *Empty) Reset()         { *m = Empty{} }
 func (m *Empty) String() string { return proto.CompactTextString(m) }
 func (*Empty) ProtoMessage()    {}
 func (*Empty) Descriptor() ([]byte, []int) {
-	return fileDescriptor_08134aea513e0001, []int{0}
+	return fileDescriptor_echo_69d85e20f994d9c2, []int{0}
 }
-
 func (m *Empty) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Empty.Unmarshal(m, b)
 }
 func (m *Empty) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Empty.Marshal(b, m, deterministic)
 }
-func (m *Empty) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Empty.Merge(m, src)
+func (dst *Empty) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Empty.Merge(dst, src)
 }
 func (m *Empty) XXX_Size() int {
 	return xxx_messageInfo_Empty.Size(m)
@@ -68,17 +65,16 @@ func (m *EchoRequest) Reset()         { *m = EchoRequest{} }
 func (m *EchoRequest) String() string { return proto.CompactTextString(m) }
 func (*EchoRequest) ProtoMessage()    {}
 func (*EchoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_08134aea513e0001, []int{1}
+	return fileDescriptor_echo_69d85e20f994d9c2, []int{1}
 }
-
 func (m *EchoRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_EchoRequest.Unmarshal(m, b)
 }
 func (m *EchoRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_EchoRequest.Marshal(b, m, deterministic)
 }
-func (m *EchoRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EchoRequest.Merge(m, src)
+func (dst *EchoRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EchoRequest.Merge(dst, src)
 }
 func (m *EchoRequest) XXX_Size() int {
 	return xxx_messageInfo_EchoRequest.Size(m)
@@ -108,17 +104,16 @@ func (m *EchoResponse) Reset()         { *m = EchoResponse{} }
 func (m *EchoResponse) String() string { return proto.CompactTextString(m) }
 func (*EchoResponse) ProtoMessage()    {}
 func (*EchoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_08134aea513e0001, []int{2}
+	return fileDescriptor_echo_69d85e20f994d9c2, []int{2}
 }
-
 func (m *EchoResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_EchoResponse.Unmarshal(m, b)
 }
 func (m *EchoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_EchoResponse.Marshal(b, m, deterministic)
 }
-func (m *EchoResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EchoResponse.Merge(m, src)
+func (dst *EchoResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EchoResponse.Merge(dst, src)
 }
 func (m *EchoResponse) XXX_Size() int {
 	return xxx_messageInfo_EchoResponse.Size(m)
@@ -162,17 +157,16 @@ func (m *ServerStreamingEchoRequest) Reset()         { *m = ServerStreamingEchoR
 func (m *ServerStreamingEchoRequest) String() string { return proto.CompactTextString(m) }
 func (*ServerStreamingEchoRequest) ProtoMessage()    {}
 func (*ServerStreamingEchoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_08134aea513e0001, []int{3}
+	return fileDescriptor_echo_69d85e20f994d9c2, []int{3}
 }
-
 func (m *ServerStreamingEchoRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ServerStreamingEchoRequest.Unmarshal(m, b)
 }
 func (m *ServerStreamingEchoRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ServerStreamingEchoRequest.Marshal(b, m, deterministic)
 }
-func (m *ServerStreamingEchoRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ServerStreamingEchoRequest.Merge(m, src)
+func (dst *ServerStreamingEchoRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ServerStreamingEchoRequest.Merge(dst, src)
 }
 func (m *ServerStreamingEchoRequest) XXX_Size() int {
 	return xxx_messageInfo_ServerStreamingEchoRequest.Size(m)
@@ -217,17 +211,16 @@ func (m *ServerStreamingEchoResponse) Reset()         { *m = ServerStreamingEcho
 func (m *ServerStreamingEchoResponse) String() string { return proto.CompactTextString(m) }
 func (*ServerStreamingEchoResponse) ProtoMessage()    {}
 func (*ServerStreamingEchoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_08134aea513e0001, []int{4}
+	return fileDescriptor_echo_69d85e20f994d9c2, []int{4}
 }
-
 func (m *ServerStreamingEchoResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ServerStreamingEchoResponse.Unmarshal(m, b)
 }
 func (m *ServerStreamingEchoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ServerStreamingEchoResponse.Marshal(b, m, deterministic)
 }
-func (m *ServerStreamingEchoResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ServerStreamingEchoResponse.Merge(m, src)
+func (dst *ServerStreamingEchoResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ServerStreamingEchoResponse.Merge(dst, src)
 }
 func (m *ServerStreamingEchoResponse) XXX_Size() int {
 	return xxx_messageInfo_ServerStreamingEchoResponse.Size(m)
@@ -258,17 +251,16 @@ func (m *ClientStreamingEchoRequest) Reset()         { *m = ClientStreamingEchoR
 func (m *ClientStreamingEchoRequest) String() string { return proto.CompactTextString(m) }
 func (*ClientStreamingEchoRequest) ProtoMessage()    {}
 func (*ClientStreamingEchoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_08134aea513e0001, []int{5}
+	return fileDescriptor_echo_69d85e20f994d9c2, []int{5}
 }
-
 func (m *ClientStreamingEchoRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ClientStreamingEchoRequest.Unmarshal(m, b)
 }
 func (m *ClientStreamingEchoRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ClientStreamingEchoRequest.Marshal(b, m, deterministic)
 }
-func (m *ClientStreamingEchoRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ClientStreamingEchoRequest.Merge(m, src)
+func (dst *ClientStreamingEchoRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ClientStreamingEchoRequest.Merge(dst, src)
 }
 func (m *ClientStreamingEchoRequest) XXX_Size() int {
 	return xxx_messageInfo_ClientStreamingEchoRequest.Size(m)
@@ -299,17 +291,16 @@ func (m *ClientStreamingEchoResponse) Reset()         { *m = ClientStreamingEcho
 func (m *ClientStreamingEchoResponse) String() string { return proto.CompactTextString(m) }
 func (*ClientStreamingEchoResponse) ProtoMessage()    {}
 func (*ClientStreamingEchoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_08134aea513e0001, []int{6}
+	return fileDescriptor_echo_69d85e20f994d9c2, []int{6}
 }
-
 func (m *ClientStreamingEchoResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ClientStreamingEchoResponse.Unmarshal(m, b)
 }
 func (m *ClientStreamingEchoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ClientStreamingEchoResponse.Marshal(b, m, deterministic)
 }
-func (m *ClientStreamingEchoResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ClientStreamingEchoResponse.Merge(m, src)
+func (dst *ClientStreamingEchoResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ClientStreamingEchoResponse.Merge(dst, src)
 }
 func (m *ClientStreamingEchoResponse) XXX_Size() int {
 	return xxx_messageInfo_ClientStreamingEchoResponse.Size(m)
@@ -829,9 +820,9 @@ var _EchoService_serviceDesc = grpc.ServiceDesc{
 	Metadata: "echo.proto",
 }
 
-func init() { proto.RegisterFile("echo.proto", fileDescriptor_08134aea513e0001) }
+func init() { proto.RegisterFile("echo.proto", fileDescriptor_echo_69d85e20f994d9c2) }
 
-var fileDescriptor_08134aea513e0001 = []byte{
+var fileDescriptor_echo_69d85e20f994d9c2 = []byte{
 	// 410 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x54, 0x4d, 0x6f, 0xda, 0x40,
 	0x10, 0x65, 0x5b, 0x3e, 0xc4, 0x40, 0x3f, 0xb4, 0xed, 0xc1, 0x35, 0x52, 0x45, 0xb7, 0x87, 0xfa,
