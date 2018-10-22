@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   echo-server:
     build:
@@ -33,5 +33,11 @@ services:
     build:
       context: ./
       dockerfile: ./frontend/improbable/Dockerfile
+    ports:
+      - "80:10000"
+  improbable-ws:
+    build:
+      context: ./
+      dockerfile: ./frontend/improbable-ws/Dockerfile
     ports:
       - "80:10000"
