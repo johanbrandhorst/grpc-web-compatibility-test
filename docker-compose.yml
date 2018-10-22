@@ -41,3 +41,15 @@ services:
       dockerfile: ./frontend/improbable-ws/Dockerfile
     ports:
       - "80:10000"
+  grpcweb:
+    build:
+      context: ./
+      dockerfile: ./frontend/grpcweb/Dockerfile
+    ports:
+      - "80:10000"
+  grpcwebtext:
+    build:
+      context: ./
+      dockerfile: ./frontend/grpcwebtext/Dockerfile
+    ports:
+      - "80:10000"

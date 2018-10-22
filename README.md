@@ -78,9 +78,9 @@ Footnote: `improbable-ws` implements a non-standard websocket transport.
 
 ## Capability matrix
 
-| Client / Feature | `application/grpc-web+proto` | `application/grpc-web-text` | Unary+Server Streams | Client+Bidi streaming |
-| ---------------- | ---------------------------- | --------------------------- | -------------------- | --------------------- |
-| `improbable`     | ✔️ ️                         | ❌                          | ✔️                   | ❌                    |
-| `improbable-ws`  | ✔️ ️                         | ❌                          | ✔️                   | ✔️️                   |
-| `grpcweb`        | ✔️ ️                         | ❌                          | ✔️                   | ❌                    |
-| `grpcwebtext`    | ❌ ️                         | ✔️️                         | ✔️                   | ❌                    |
+| Client / Feature | `application/grpc-web+proto` | `application/grpc-web-text` | Unary | Server Streams | Client+Bidi streaming |
+| ---------------- | ---------------------------- | --------------------------- | ----- | -------------- | --------------------- |
+| `improbable`     | ✔️ ️                         | ❌                          | ✔️    | ✔️             | ❌                    |
+| `improbable-ws`  | ✔️ ️                         | ❌                          | ✔️    | ✔️             | ✔️️                   |
+| `grpcweb`        | ✔️ ️                         | ❌                          | ✔️    | ❌             | ❌                    |
+| `grpcwebtext`    | ❌ ️                         | ✔️️                         | ✔️    | ✔️             | ❌                    |

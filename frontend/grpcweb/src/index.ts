@@ -19,7 +19,7 @@
 import * as grpcWeb from "grpc-web";
 import * as $ from "jquery";
 
-import { EchoServiceClient } from "../proto/echo_grpc_web_pb";
+import { EchoServiceClient } from "../proto/EchoServiceClientPb";
 
 import {
   EchoRequest,

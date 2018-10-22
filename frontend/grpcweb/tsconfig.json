@@ -9,7 +9,6 @@
     "strictNullChecks": true,
     "stripInternal": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "commonjs",
     "noEmitOnError": true
   }
 }
