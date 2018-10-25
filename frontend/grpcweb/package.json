@@ -2,6 +2,7 @@
   "dependencies": {
     "@types/jquery": "^3.3.6",
     "jquery": "^3.3.1",
+    "@types/google-protobuf": "3.2.7",
     "google-protobuf": "^3.6.1",
     "grpc-web": "^1.0.0",
     "typescript": "^3.1.3",
