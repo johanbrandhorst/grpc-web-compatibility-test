@@ -76,7 +76,7 @@ Footnote: The websocket transport is not part of the grpc-web spec.
 
 | Proxy / Client | `improbable` | `improbable-ws` | `grpcweb` | `grpcwebtext` |
 | -------------- | ------------ | --------------- | --------- | ------------- |
-| `grpcwebproxy` | ✔️️          | ✔️️ [1]         | ❌ [2]    | ❌ [3]        |
+| `grpcwebproxy` | ✔️️          | ✔️️ [1]         | ✔️ [2]    | ❌ [3]        |
 | `envoy`        | ✔️           | ❌              | ✔️️       | ✔️            |
 
 1. `improbable-ws` implements a non-standard websocket transport.
