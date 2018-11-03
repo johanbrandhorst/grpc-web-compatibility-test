@@ -76,13 +76,11 @@ Footnote: The websocket transport is not part of the grpc-web spec.
 
 | Proxy / Client | `improbable` | `improbable-ws` | `grpcweb` | `grpcwebtext` |
 | -------------- | ------------ | --------------- | --------- | ------------- |
-| `grpcwebproxy` | ✔️️          | ✔️️ [1]         | ✔️ [2]    | ❌ [3]        |
+| `grpcwebproxy` | ✔️️          | ✔️️ [1]         | ✔️        | ❌ [2]        |
 | `envoy`        | ✔️           | ❌              | ✔️️       | ✔️            |
 
 1. `improbable-ws` implements a non-standard websocket transport.
-2. `grpcwebproxy` in-body trailer capitilisation is in violation of the spec.
-   [(issue)](https://github.com/improbable-eng/grpc-web/issues/228)
-3. `grpcwebproxy` does not support the `application/grpc-web-text` content-type. [(issue)](https://github.com/improbable-eng/grpc-web/issues/254)
+2. `grpcwebproxy` does not support the `application/grpc-web-text` content-type. [(issue)](https://github.com/improbable-eng/grpc-web/issues/254)
 
 ## Capability matrix
 
