@@ -17,7 +17,7 @@ import {
 
 const host = "http://localhost:8080";
 var client = new EchoServiceClient(host, {
-  transport: grpc.WebsocketTransportFactory,
+  transport: grpc.WebsocketTransport(),
   debug: true
 });
 

@@ -90,7 +90,6 @@ export class EchoService {
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
 export type Status = { details: string, code: number; metadata: grpc.Metadata }
-export type ServiceClientOptions = { transport?: grpc.TransportConstructor; debug?: boolean }
 
 interface UnaryResponse {
   cancel(): void;
@@ -120,7 +119,7 @@ interface BidirectionalStream<ReqT, ResT> {
 export class EchoServiceClient {
   readonly serviceHost: string;
 
-  constructor(serviceHost: string, options?: ServiceClientOptions);
+  constructor(serviceHost: string, options?: grpc.RpcOptions);
   echo(
     requestMessage: echo_pb.EchoRequest,
     metadata: grpc.Metadata,

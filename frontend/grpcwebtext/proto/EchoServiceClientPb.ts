@@ -20,12 +20,12 @@ import {
 export class EchoServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
-  credentials_: {};
-  options_: { [s: string]: {}; };
+  credentials_: null | { [index: string]: string; };
+  options_: null | { [index: string]: string; };
 
   constructor (hostname: string,
-               credentials: {},
-               options: { [s: string]: {}; }) {
+               credentials: null | { [index: string]: string; },
+               options: null | { [index: string]: string; }) {
     if (!options) options = {};
     options['format'] = 'text';
 
