@@ -12,12 +12,6 @@ Test various implementations of gRPC-Web Clients with various implementations of
   available at https://github.com/improbable-eng/grpc-web/tree/master/ts.
   It uses the `application/grpc-web` content-type.
 
-- `improbable-ws`
-
-  The client created by Improbable, leveraging a custom websocket transport,
-  available at https://github.com/improbable-eng/grpc-web/tree/master/ts.
-  It uses the `application/grpc-web` content-type.
-
 - `grpcweb`
 
   The client created by Google and the gRPC organisation,
@@ -30,6 +24,15 @@ Test various implementations of gRPC-Web Clients with various implementations of
   The client created by Google and the gRPC organisation,
   available at https://github.com/grpc/grpc-web, generated with `mode=grpcwebtext`.
   It uses XHR and the `application/grpc-web-text` content-type.
+
+#### Non-gRPC-Web clients tested
+
+- `improbable-ws`
+
+  The client created by Improbable, leveraging an experimental websocket transport,
+  available at https://github.com/improbable-eng/grpc-web/tree/master/ts.
+  It uses the `application/grpc-web` content-type. It is not part of the
+  gRPC-Web spec, and not recommended for production use.
 
 ### Proxies
 
@@ -74,23 +77,23 @@ Footnote: The websocket transport is not part of the grpc-web spec.
 
 ## Compatbility status
 
-| Proxy / Client | `improbable` | `improbable-ws` | `grpcweb` | `grpcwebtext` |
-| -------------- | ------------ | --------------- | --------- | ------------- |
-| `grpcwebproxy` | ✔️️          | ✔️️ [1]         | ✔️        | ❌ [2]        |
-| `envoy`        | ✔️           | ❌              | ✔️️       | ✔️            |
+| Proxy / Client | `improbable` | `grpcweb` | `grpcwebtext` | `improbable-ws` [1] |
+| -------------- | ------------ | --------- | ------------- | ------------------- |
+| `envoy`        | ✔️           | ✔️️       | ✔️            | ❌                  |
+| `grpcwebproxy` | ✔️️          | ✔️        | ❌ [2]        | ✔️️                 |
 
 1. `improbable-ws` implements a non-standard websocket transport.
 2. `grpcwebproxy` does not support the `application/grpc-web-text` content-type. [(issue)](https://github.com/improbable-eng/grpc-web/issues/254)
 
 ## Capability matrix
 
-| Client / Feature | `application/grpc-web` | `application/grpc-web-text` | Unary | Server Streams | Client+Bidi streaming |
-| ---------------- | ---------------------- | --------------------------- | ----- | -------------- | --------------------- |
-| `improbable`     | ✔️ ️                   | ❌                          | ✔️    | ✔️             | ❌                    |
-| `improbable-ws`  | ✔️ ️                   | ❌                          | ✔️    | ✔️             | ✔️️ [1]               |
-| `grpcweb`        | ✔️ ️                   | ❌                          | ✔️    | ❌ [2]         | ❌                    |
-| `grpcwebtext`    | ❌ ️                   | ✔️️                         | ✔️    | ✔️             | ❌                    |
+| Client / Feature    | `application/grpc-web` | `application/grpc-web-text` | Unary | Server Streams | Client+Bidi streaming |
+| ------------------- | ---------------------- | --------------------------- | ----- | -------------- | --------------------- |
+| `improbable`        | ✔️ ️                   | ❌                          | ✔️    | ✔️             | ❌                    |
+| `grpcweb`           | ✔️ ️                   | ❌                          | ✔️    | ❌ [1]         | ❌                    |
+| `grpcwebtext`       | ❌ ️                   | ✔️️                         | ✔️    | ✔️             | ❌                    |
+| `improbable-ws` [2] | ✔️ ️                   | ❌                          | ✔️    | ✔️             | ✔️️                   |
 
-1. `improbable-ws` implements a non-standard websocket transport for client-side and bi-directional streams.
-2. `grpcweb` allows server streaming methods to be called, but it doesn't return data until the stream has closed.
+1. `grpcweb` allows server streaming methods to be called, but it doesn't return data until the stream has closed.
    [(issue)](https://github.com/grpc/grpc-web/issues/344)
+2. `improbable-ws` implements a non-standard websocket transport for client-side and bi-directional streams.
