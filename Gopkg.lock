@@ -57,15 +57,15 @@
   version = "v1.2.0"
 
 [[projects]]
-  digest = "1:98dbc3179c900f686e777659dccb0edc8b7b02ff0f5f7f850456aa8779e7ef3b"
+  branch = "master"
+  digest = "1:e89f8c3a12088001110d7df30022b386806976dd9c5886a426baa44884217e79"
   name = "github.com/improbable-eng/grpc-web"
   packages = [
     "go/grpcweb",
     "go/grpcwebproxy",
   ]
   pruneopts = "UT"
-  revision = "f683dbb3b587cfcc858dcbc2fce782c610fc4979"
-  version = "0.6.4"
+  revision = "412759a1acbb78a180199edd11898224528ecd4e"
 
 [[projects]]
   digest = "1:ff5ebae34cfbf047d505ee150de27e60570e8c394b3b8fdbb720ff6ac71985fc"
