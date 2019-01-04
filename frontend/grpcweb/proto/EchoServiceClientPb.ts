@@ -9,6 +9,7 @@
 
 import * as grpcWeb from 'grpc-web';
 import {
+  Duration,
   ClientStreamingEchoRequest,
   ClientStreamingEchoResponse,
   EchoRequest,
