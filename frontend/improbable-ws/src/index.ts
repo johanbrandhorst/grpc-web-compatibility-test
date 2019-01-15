@@ -1,4 +1,4 @@
-import { grpc } from "grpc-web-client";
+import { grpc } from "@improbable-eng/grpc-web";
 import { Duration } from "google-protobuf/google/protobuf/duration_pb";
 import {
   EchoServiceClient,

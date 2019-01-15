@@ -2,7 +2,7 @@
 // file: echo.proto
 
 import * as echo_pb from "./echo_pb";
-import {grpc} from "grpc-web-client";
+import {grpc} from "@improbable-eng/grpc-web";
 
 type EchoServiceEcho = {
   readonly methodName: string;
