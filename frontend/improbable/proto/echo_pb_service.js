@@ -2,7 +2,7 @@
 // file: echo.proto
 
 var echo_pb = require("./echo_pb");
-var grpc = require("grpc-web-client").grpc;
+var grpc = require("@improbable-eng/grpc-web").grpc;
 
 var EchoService = (function () {
   function EchoService() {}

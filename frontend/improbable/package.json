@@ -2,7 +2,7 @@
   "dependencies": {
     "@types/google-protobuf": "^3.2.7",
     "google-protobuf": "^3.6.1",
-    "grpc-web-client": "^0.7.0"
+    "@improbable-eng/grpc-web": "^0.8.0"
   },
   "devDependencies": {
     "webpack": "^4.20.2",
