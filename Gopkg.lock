@@ -270,6 +270,7 @@
     "github.com/golang/protobuf/proto",
     "github.com/golang/protobuf/ptypes",
     "github.com/golang/protobuf/ptypes/duration",
+    "github.com/improbable-eng/grpc-web/go/grpcweb",
     "github.com/improbable-eng/grpc-web/go/grpcwebproxy",
     "golang.org/x/net/context",
     "google.golang.org/grpc",
