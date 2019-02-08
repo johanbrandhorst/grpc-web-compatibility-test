@@ -21,6 +21,14 @@ services:
       - --use_websockets=true
     links:
       - echo-server
+  inprocess:
+    build:
+      context: ./
+      dockerfile: ./proxy/inprocess/Dockerfile
+    ports:
+      - "8080:8080"
+    command:
+      - --grpc_port=8080
   envoy:
     build:
       context: ./
