@@ -91,10 +91,9 @@ it includes the server itself.
 | -------------- | ------------ | --------- | ------------- | ------------------- |
 | `envoy`        | ✔️           | ✔️️       | ✔️            | ❌                  |
 | `grpcwebproxy` | ✔️️          | ✔️        | ✔️            | ✔️️                 |
-| `inprocess` | ✔️️          | ❌ [2]    | ❌ [2]        | ✔️️                 |
+| `inprocess` | ✔️️          | ✔️        | ✔️            | ✔️️                 |
 
 1. `improbable-ws` implements a non-standard websocket transport.
-1. See https://github.com/improbable-eng/grpc-web/issues/334.
 
 ## Capability matrix
 
