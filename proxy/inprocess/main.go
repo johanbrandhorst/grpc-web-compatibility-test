@@ -32,9 +32,15 @@ func main() {
 	gs := grpc.NewServer()
 	pbEcho.RegisterEchoServiceServer(gs, &echo.Server{})
 
+	of := func(_ string) bool {
+		return true
+	}
 	srv := http.Server{
-		Addr:    fmt.Sprintf(":%d", *gRPCPort),
-		Handler: grpcweb.WrapServer(gs, grpcweb.WithWebsockets(true)),
+		Addr: fmt.Sprintf(":%d", *gRPCPort),
+		Handler: grpcweb.WrapServer(gs,
+			grpcweb.WithWebsockets(true),
+			grpcweb.WithOriginFunc(of),
+		),
 	}
 
 	// Serve gRPC Server
