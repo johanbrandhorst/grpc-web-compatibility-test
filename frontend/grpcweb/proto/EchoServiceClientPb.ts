@@ -8,8 +8,10 @@
 
 
 import * as grpcWeb from 'grpc-web';
+
+import * as google_protobuf_duration_pb from 'google-protobuf/google/protobuf/duration_pb';
+
 import {
-  Duration,
   ClientStreamingEchoRequest,
   ClientStreamingEchoResponse,
   EchoRequest,
@@ -46,14 +48,14 @@ export class EchoServiceClient {
 
   echo(
     request: EchoRequest,
-    metadata: grpcWeb.Metadata,
+    metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
                response: EchoResponse) => void) {
     return this.client_.rpcCall(
       this.hostname_ +
         '/grpc.gateway.testing.EchoService/Echo',
       request,
-      metadata,
+      metadata || {},
       this.methodInfoEcho,
       callback);
   }
@@ -68,14 +70,14 @@ export class EchoServiceClient {
 
   echoAbort(
     request: EchoRequest,
-    metadata: grpcWeb.Metadata,
+    metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
                response: EchoResponse) => void) {
     return this.client_.rpcCall(
       this.hostname_ +
         '/grpc.gateway.testing.EchoService/EchoAbort',
       request,
-      metadata,
+      metadata || {},
       this.methodInfoEchoAbort,
       callback);
   }
@@ -90,14 +92,14 @@ export class EchoServiceClient {
 
   noOp(
     request: Empty,
-    metadata: grpcWeb.Metadata,
+    metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
                response: Empty) => void) {
     return this.client_.rpcCall(
       this.hostname_ +
         '/grpc.gateway.testing.EchoService/NoOp',
       request,
-      metadata,
+      metadata || {},
       this.methodInfoNoOp,
       callback);
   }
@@ -112,12 +114,12 @@ export class EchoServiceClient {
 
   serverStreamingEcho(
     request: ServerStreamingEchoRequest,
-    metadata: grpcWeb.Metadata) {
+    metadata?: grpcWeb.Metadata) {
     return this.client_.serverStreaming(
       this.hostname_ +
         '/grpc.gateway.testing.EchoService/ServerStreamingEcho',
       request,
-      metadata,
+      metadata || {},
       this.methodInfoServerStreamingEcho);
   }
 
@@ -131,12 +133,12 @@ export class EchoServiceClient {
 
   serverStreamingEchoAbort(
     request: ServerStreamingEchoRequest,
-    metadata: grpcWeb.Metadata) {
+    metadata?: grpcWeb.Metadata) {
     return this.client_.serverStreaming(
       this.hostname_ +
         '/grpc.gateway.testing.EchoService/ServerStreamingEchoAbort',
       request,
-      metadata,
+      metadata || {},
       this.methodInfoServerStreamingEchoAbort);
   }
 
