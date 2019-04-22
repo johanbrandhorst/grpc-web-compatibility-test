@@ -38,6 +38,11 @@ services:
       - '8080:8080'
     links:
       - echo-server
+  grpcwsgi:
+    build:
+      context: ./backend/grpcwsgi/
+    ports:
+      - '8080:8080'
   improbable:
     build:
       context: ./
