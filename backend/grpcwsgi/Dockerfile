@@ -5,8 +5,10 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN ls -l
-RUN pip install .
+
+RUN pip install git+git://github.com/public/grpcWSGI.git
 RUN pip install grpcio-tools
+
 RUN python -m grpc.tools.protoc \
     --proto_path=proto/echo \
     --python_out=. \
@@ -15,4 +17,4 @@ RUN python -m grpc.tools.protoc \
 
 EXPOSE 10000
 
-CMD [ "python", "./server.py" ]
+CMD [ "python", "./backend/grpcwsgi/server.py" ]

@@ -40,7 +40,8 @@ services:
       - echo-server
   grpcwsgi:
     build:
-      context: ./backend/grpcwsgi/
+      context: ./
+      dockerfile: ./backend/grpcwsgi/Dockerfile
     ports:
       - '8080:8080'
   improbable:
