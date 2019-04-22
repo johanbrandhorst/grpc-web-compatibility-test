@@ -11,8 +11,8 @@ RUN pip install grpcio-tools
 
 RUN python -m grpc.tools.protoc \
     --proto_path=proto/echo \
-    --python_out=. \
-    --grpc_python_out=. \
+    --python_out=backend/grpcwsgi/ \
+    --grpc_python_out=backend/grpcwsgi/ \
     proto/echo/echo.proto
 
 EXPOSE 10000
