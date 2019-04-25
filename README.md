@@ -56,11 +56,11 @@ Test various implementations of gRPC-Web Clients with various implementations of
   available at https://github.com/envoyproxy/envoy/tree/master/source/extensions/filters/http/grpc_web.
   It supports XHR and both the `application/grpc-web` and `application/grpc-web-text` content-types.
 
-- `grpcwsgi``
+- `grpcwsgi`
 
-    A Python WSGI compatible implementation of gRPC-Web, available at https://github.com/public/grpcWSGI.
-    It supports Fetch/XHR only.
-    It supports `application/grpc-web` only.
+  A Python WSGI compatible implementation of gRPC-Web, available at https://github.com/public/grpcWSGI.
+  It supports Fetch/XHR only.
+  It supports `application/grpc-web` only.
 
 Note: The websocket transport is not part of the grpc-web spec.
 
@@ -98,7 +98,7 @@ it includes the server itself.
 | `envoy`        | ✔️           | ✔️️       | ✔️            | ❌                  |
 | `grpcwebproxy` | ✔️️          | ✔️        | ✔️            | ✔️️                 |
 | `inprocess` | ✔️️          | ✔️        | ✔️            | ✔️️                 |
-| `grpcwsgi` | ✔️️          | ✔️        | ✔️            | ❌                 |
+| `grpcwsgi` | ✔️️          | ✔️        | ❌             | ❌                 |
 
 1. `improbable-ws` implements a non-standard websocket transport.
 
