@@ -38,6 +38,12 @@ services:
       - '8080:8080'
     links:
       - echo-server
+  grpcwsgi:
+    build:
+      context: ./
+      dockerfile: ./backend/grpcwsgi/Dockerfile
+    ports:
+      - '8080:8080'
   improbable:
     build:
       context: ./

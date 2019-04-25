@@ -56,6 +56,12 @@ Test various implementations of gRPC-Web Clients with various implementations of
   available at https://github.com/envoyproxy/envoy/tree/master/source/extensions/filters/http/grpc_web.
   It supports XHR and both the `application/grpc-web` and `application/grpc-web-text` content-types.
 
+- `grpcwsgi`
+
+  A Python WSGI compatible implementation of gRPC-Web, available at https://github.com/public/grpcWSGI.
+  It supports Fetch/XHR only.
+  It supports `application/grpc-web` only.
+
 Note: The websocket transport is not part of the grpc-web spec.
 
 ## Requirements
@@ -68,7 +74,7 @@ Note: The websocket transport is not part of the grpc-web spec.
    ```bash
    $ docker-compose up -d echo-server
    ```
-1. Start the proxy of your choice (`envoy`, `grpcwebproxy`, `inprocess`)
+1. Start the proxy of your choice (`envoy`, `grpcwebproxy`, `inprocess`, `grpcwsgi`)
    ```bash
    $ docker-compose up -d grpcwebproxy
    ```
@@ -82,8 +88,8 @@ Note: The websocket transport is not part of the grpc-web spec.
    $ docker-compose down
    ```
 
-Note: The `inprocess` proxy does not require `echo-server` to be running,
-it includes the server itself.
+Note: The `inprocess` and `grpcwsgi` proxies do not require `echo-server` to be running,
+they include the server themselves.
 
 ## Compatbility status
 
@@ -92,6 +98,7 @@ it includes the server itself.
 | `envoy`        | ✔️           | ✔️️       | ✔️            | ❌                  |
 | `grpcwebproxy` | ✔️️          | ✔️        | ✔️            | ✔️️                 |
 | `inprocess` | ✔️️          | ✔️        | ✔️            | ✔️️                 |
+| `grpcwsgi` | ✔️️          | ✔️        | ❌             | ❌                 |
 
 1. `improbable-ws` implements a non-standard websocket transport.
 
@@ -103,6 +110,7 @@ it includes the server itself.
 | `grpcweb`           | ✔️ ️                   | ❌                          | ✔️    | ❌ [1]         | ❌                    |
 | `grpcwebtext`       | ❌ ️                   | ✔️️                         | ✔️    | ✔️             | ❌                    |
 | `improbable-ws` [2] | ✔️ ️                   | ❌                          | ✔️    | ✔️             | ✔️️                   |
+| `grpcwsgi`           | ✔️ ️                   | ❌                          | ✔️    | ✔️             | ❌                    |
 
 1. `grpcweb` allows server streaming methods to be called, but it doesn't return data until the stream has closed.
    [(issue)](https://github.com/grpc/grpc-web/issues/344)

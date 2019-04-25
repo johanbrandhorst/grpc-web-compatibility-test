@@ -12,7 +12,7 @@ import {
   ServerStreamingEchoResponse
 } from "../proto/echo_pb";
 
-const host = "http://localhost:8080";
+const host = "http://" + window.location.hostname + ":8080";
 var client = new EchoServiceClient(host, {
   transport: grpc.CrossBrowserHttpTransport({
     withCredentials: false
@@ -23,7 +23,7 @@ var client = new EchoServiceClient(host, {
 function makeEchoRequest() {
   const req = new EchoRequest();
   req.setMessage("test");
-  client.echo(req, function(
+  client.echo(req, function (
     err: ServiceError | null,
     resp: EchoResponse | null
   ) {
@@ -44,7 +44,7 @@ makeEchoRequest();
 function makeEchoAbortRequest() {
   const req = new EchoRequest();
   req.setMessage("test");
-  client.echoAbort(req, function(
+  client.echoAbort(req, function (
     err: ServiceError | null,
     resp: EchoResponse | null
   ) {
@@ -70,14 +70,14 @@ function makeServerStreamingEchoRequest() {
   req.setMessageInterval(interval);
   req.setMessage("test");
   const srv = client.serverStreamingEcho(req);
-  srv.on("data", function(msg: ServerStreamingEchoResponse) {
+  srv.on("data", function (msg: ServerStreamingEchoResponse) {
     console.log("Streaming success");
     console.log("Message:", msg.getMessage());
   });
-  srv.on("end", function() {
+  srv.on("end", function () {
     console.log("Server stream finished");
   });
-  srv.on("status", function(status: Status) {
+  srv.on("status", function (status: Status) {
     if (status.code != grpc.Code.OK) {
       console.log("Got streaming error");
       console.log("Error:", status.details);
@@ -97,14 +97,14 @@ function makeServerStreamingEchoAbortRequest() {
   req.setMessageInterval(interval);
   req.setMessage("test");
   const srv = client.serverStreamingEchoAbort(req);
-  srv.on("data", function(msg: ServerStreamingEchoResponse) {
+  srv.on("data", function (msg: ServerStreamingEchoResponse) {
     console.log("Streaming success");
     console.log("Message:", msg.getMessage());
   });
-  srv.on("end", function() {
+  srv.on("end", function () {
     console.log("Server stream finished");
   });
-  srv.on("status", function(status: Status) {
+  srv.on("status", function (status: Status) {
     if (status.code != grpc.Code.OK) {
       console.log("Got streaming error (as expected)");
       console.log("Error:", status.details);
