@@ -89,7 +89,7 @@ Note: The websocket transport is not part of the grpc-web spec.
    ```
 
 Note: The `inprocess` and `grpcwsgi` proxies do not require `echo-server` to be running,
-it includes the server itself.
+they include the server themselves.
 
 ## Compatbility status
 
