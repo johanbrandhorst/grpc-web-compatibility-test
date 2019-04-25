@@ -88,7 +88,7 @@ Note: The websocket transport is not part of the grpc-web spec.
    $ docker-compose down
    ```
 
-Note: The `inprocess` proxy does not require `echo-server` to be running,
+Note: The `inprocess` and `grpcwsgi` proxies do not require `echo-server` to be running,
 it includes the server itself.
 
 ## Compatbility status
