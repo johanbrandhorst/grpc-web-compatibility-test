@@ -41,7 +41,7 @@ services:
   grpcwsgi:
     build:
       context: ./
-      dockerfile: ./backend/grpcwsgi/Dockerfile
+      dockerfile: ./proxy/grpcwsgi/Dockerfile
     ports:
       - '8080:8080'
   improbable:
