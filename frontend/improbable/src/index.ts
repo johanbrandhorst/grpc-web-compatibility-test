@@ -48,7 +48,7 @@ describe('grpc client', function () {
       err: ServiceError | null,
       resp: EchoResponse | null
     ) {
-      assert(err !== null);
+      assert(err!.code == grpc.Code.Aborted);
       assert(resp === null);
       done();
     });
@@ -90,7 +90,7 @@ describe('grpc client', function () {
     const srv = client.serverStreamingEchoAbort(req);
 
     srv.on("status", function (status: Status) {
-      assert(status.code != grpc.Code.OK);
+      assert(status.code == grpc.Code.Aborted);
     });
 
     srv.on("end", function () {
