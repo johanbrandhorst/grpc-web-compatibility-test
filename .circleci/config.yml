@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: golang:latest
+    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
+    steps:
+      - checkout
+      - run: go build ./...
+workflows:
+  version: 2
+  all:
+    jobs:
+      - build
