@@ -1,4 +1,5 @@
 # grpc-web-compatibility-test
+[![CircleCI](https://img.shields.io/circleci/project/github/johanbrandhorst/grpc-web-compatibility-test/master.svg?style=flat-square)](https://circleci.com/gh/johanbrandhorst/grpc-web-compatibility-test)
 
 Test various implementations of gRPC-Web Clients with various implementations of gRPC-Web proxies
 
