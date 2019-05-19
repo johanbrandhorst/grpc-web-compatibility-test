@@ -32,4 +32,4 @@ workflows:
   all:
     jobs:
       - build
-      - go-browsers
+      - inprocess-chrome
