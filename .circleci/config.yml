@@ -23,7 +23,7 @@ jobs:
           command: npm ci
       - run:
           working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:8080
+          command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:10000
 workflows:
   version: 2
   all:
