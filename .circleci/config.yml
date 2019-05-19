@@ -20,7 +20,7 @@ jobs:
           command: ./inprocess
       - run:
           working_directory: frontend/
-          command: npm install
+          command: npm ci
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:8080

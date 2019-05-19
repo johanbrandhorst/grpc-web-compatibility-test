@@ -4,6 +4,6 @@ COPY --chown=circleci:circleci . /home/node/src
 
 WORKDIR /home/node/src
 
-RUN npm install
+RUN npm ci
 
 ENTRYPOINT exec node_modules/.bin/grunt
