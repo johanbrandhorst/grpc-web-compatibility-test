@@ -53,10 +53,10 @@ jobs:
           command: npm ci
       - run:
           working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:10000
+          command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:8080
       - run:
           working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:10000
+          command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080
   grpcwsgi-chrome:
     docker:
       - image: circleci/python:3.7-node-browsers
