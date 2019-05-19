@@ -46,7 +46,7 @@ jobs:
             --backend_addr=dns:///localhost:9090
             --backend_tls_noverify=true
             --run_tls_server=false
-            --use_websockets=false
+            --use_websockets=true
             --allow_all_origins=true
       - run:
           working_directory: frontend/
@@ -54,6 +54,9 @@ jobs:
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:8080
+      - run:
+          working_directory: frontend/
+          command: ./node_modules/.bin/grunt karma:improbableWS --grpc-host=http://localhost:8080
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080
