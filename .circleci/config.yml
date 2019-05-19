@@ -37,7 +37,7 @@ jobs:
       - run: go build -o ./server github.com/johanbrandhorst/grpc-web-compatibility-test/backend
       - run: 
           background: true
-          command: ./server
+          command: ./server --grpc_port=9090
       - run: go build -o ./grpcwebproxy ./vendor/github.com/improbable-eng/grpc-web/go/grpcwebproxy
       - run: 
           background: true
