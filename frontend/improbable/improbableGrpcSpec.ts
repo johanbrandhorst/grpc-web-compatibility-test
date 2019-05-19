@@ -5,19 +5,20 @@ import {
   EchoServiceClient,
   ServiceError,
   Status
-} from "../proto/echo_pb_service";
+} from "./proto/echo_pb_service";
 import {
   EchoRequest,
   EchoResponse,
   ServerStreamingEchoRequest,
   ServerStreamingEchoResponse
-} from "../proto/echo_pb";
-
-const host = "http://192.168.99.100:8080";
+} from "./proto/echo_pb";
 
 var client: EchoServiceClient;
 
 before(async () => {
+  // Set host using --grpc-host param to karma
+  const host: string = (<any>window).__karma__.config.grpcHost;
+
   client = new EchoServiceClient(host, {
     transport: grpc.CrossBrowserHttpTransport({
       withCredentials: false
@@ -75,10 +76,10 @@ describe('grpc client', function () {
     });
 
     srv.on("end", function () {
-
+      assert(recvCount == 5);
       done();
     });
-  });
+  }).timeout(10000);
 
   it('ServerStreamingEchoAbortRequest', function (done) {
     const req = new ServerStreamingEchoRequest();
