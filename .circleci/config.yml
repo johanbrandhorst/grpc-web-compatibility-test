@@ -34,11 +34,11 @@ jobs:
     steps:
       - checkout
       - run: go build ./...
-      - run: go build -o ./backend github.com/johanbrandhorst/grpc-web-compatibility-test/backend
+      - run: go build -o ./server github.com/johanbrandhorst/grpc-web-compatibility-test/backend
       - run: go build -o ./grpcwebproxy ./vendor/github.com/improbable-eng/grpc-web/go/grpcwebproxy
       - run: 
           background: true
-          command: ./backend
+          command: ./server
       - run: 
           background: true
           command: >
