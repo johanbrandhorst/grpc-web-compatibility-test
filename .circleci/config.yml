@@ -33,7 +33,7 @@ jobs:
     steps:
       - checkout
       - run: |
-          pip install grpcio-tools grpcWSGI
+          sudo pip install grpcio-tools grpcWSGI
           python -m grpc.tools.protoc \
             --proto_path=proto/echo \
             --python_out=proxy/grpcwsgi/ \
