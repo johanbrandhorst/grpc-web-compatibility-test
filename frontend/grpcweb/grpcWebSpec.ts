@@ -28,9 +28,9 @@ describe('grpc client', function () {
       err: grpcWeb.Error | null,
       resp: EchoResponse | null
     ) {
-      assert(err === null);
-      assert(resp !== null);
-      assert(resp!.getMessage() == "test")
+      assert.equal(err, null);
+      assert.notEqual(resp, null);
+      assert.equal(resp!.getMessage(), "test")
       done();
     });
   });
@@ -42,8 +42,8 @@ describe('grpc client', function () {
       err: grpcWeb.Error | null,
       resp: EchoResponse | null
     ) {
-      assert(err!.code == grpcWeb.StatusCode.ABORTED);
-      assert(resp === null);
+      assert.equal(err!.code, grpcWeb.StatusCode.ABORTED);
+      assert.isNull(resp);
       done();
     });
   });
@@ -65,11 +65,11 @@ describe('grpc client', function () {
     });
 
     srv.on("status", function (status: grpcWeb.Status) {
-      assert(status.code == grpcWeb.StatusCode.OK);
+      assert.equal(status.code, grpcWeb.StatusCode.OK);
     });
 
     srv.on("end", function () {
-      assert(recvCount == 5);
+      assert.equal(recvCount, 5);
       done();
     });
   }).timeout(10000);
