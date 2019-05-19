@@ -6,4 +6,4 @@ WORKDIR /home/node/src
 
 RUN npm ci
 
-ENTRYPOINT exec node_modules/.bin/grunt
+ENTRYPOINT ["node_modules/.bin/grunt"]
