@@ -61,7 +61,7 @@ describe('grpc client', function () {
       recvCount += 1;
     });
 
-    srv.on("status", function (status: Status) {
+    srv.on("status", function (status: grpcWeb.Status) {
       assert(status.code == grpcWeb.StatusCode.OK);
     });
 
@@ -80,7 +80,7 @@ describe('grpc client', function () {
     req.setMessage("test");
     const srv = client.serverStreamingEchoAbort(req);
 
-    srv.on("status", function (status: Status) {
+    srv.on("status", function (status: grpcWeb.Status) {
       assert(status.code == grpcWeb.StatusCode.ABORTED);
     });
 
