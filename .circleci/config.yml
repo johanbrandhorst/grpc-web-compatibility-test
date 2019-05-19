@@ -14,7 +14,7 @@ jobs:
     steps:
       - checkout
       - run: go build ./...
-      - run: go build -o /inprocess github.com/johanbrandhorst/grpc-web-compatibility-test/proxy/inprocess
+      - run: go build -o ./inprocess github.com/johanbrandhorst/grpc-web-compatibility-test/proxy/inprocess
       - run: 
           background: true
           command: ./inprocess
@@ -23,7 +23,7 @@ jobs:
           command: npm install
       - run:
           working_directory: frontend/
-          command: npx run karma:improbable --grpc-host=http://localhost:8080
+          command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:8080
 workflows:
   version: 2
   all:

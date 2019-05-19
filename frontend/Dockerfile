@@ -4,7 +4,6 @@ COPY --chown=circleci:circleci . /home/node/src
 
 WORKDIR /home/node/src
 
-RUN ls -l 
 RUN npm install
 
-ENTRYPOINT exec npx grunt
+ENTRYPOINT exec node_modules/.bin/grunt
