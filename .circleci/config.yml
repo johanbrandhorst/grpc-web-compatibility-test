@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run: go build ./...
-  go-browsers:
+  inprocess-chrome:
     docker:
       - image: circleci/golang:latest-node-browsers
     working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
@@ -24,6 +24,9 @@ jobs:
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:10000
+      - run:
+          working_directory: frontend/
+          command: ./node_modules/.bin/grunt karma:grpcweb --grpc-host=http://localhost:10000
 workflows:
   version: 2
   all:
