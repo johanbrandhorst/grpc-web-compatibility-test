@@ -9,7 +9,8 @@ import {
   ServerStreamingEchoRequest,
   ServerStreamingEchoResponse
 } from "./proto/echo_pb";
-import * as assert from 'assert';
+
+import { assert } from 'chai';
 
 var client: EchoServiceClient;
 
@@ -80,10 +81,21 @@ describe('grpc client', function () {
     interval.setSeconds(1);
     req.setMessageInterval(interval);
     req.setMessage("test");
+
+    // This test is expected to fail due to an unhandled exception
+    // inside gRPC-Web. We expect it to happen and only pass the
+    // test if it actually happens.
+
+    window.onerror = function (message, file, line, col, error) {
+      assert.include(<string>message, "b.i is not a function");
+      done();
+      return false;
+    };
+
     const srv = client.serverStreamingEchoAbort(req);
 
     srv.on("end", function () {
-      done();
+      assert(false);
     });
   });
 });
