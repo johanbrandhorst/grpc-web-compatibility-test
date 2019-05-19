@@ -26,7 +26,7 @@ jobs:
           command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:10000
       - run:
           working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:grpcweb --grpc-host=http://localhost:10000
+          command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:10000
 workflows:
   version: 2
   all:
