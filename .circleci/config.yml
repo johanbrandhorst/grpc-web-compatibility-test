@@ -27,6 +27,36 @@ jobs:
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:10000
+  grpcwebproxy-chrome:
+    docker:
+      - image: circleci/golang:latest-node-browsers
+    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
+    steps:
+      - checkout
+      - run: go build ./...
+      - run: go build -o ./backend github.com/johanbrandhorst/grpc-web-compatibility-test/backend
+      - run: go build -o ./grpcwebproxy ./vendor/github.com/improbable-eng/grpc-web/go/grpcwebproxy
+      - run: 
+          background: true
+          command: ./backend
+      - run: 
+          background: true
+          command: >
+            ./grpcwebproxy
+            --backend_addr=dns:///localhost:9090
+            --backend_tls_noverify=true
+            --run_tls_server=false
+            --use_websockets=false
+            --allow_all_origins=true
+      - run:
+          working_directory: frontend/
+          command: npm ci
+      - run:
+          working_directory: frontend/
+          command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:10000
+      - run:
+          working_directory: frontend/
+          command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:10000
   grpcwsgi-chrome:
     docker:
       - image: circleci/python:3.7-node-browsers
@@ -58,3 +88,4 @@ workflows:
       - build
       - inprocess-chrome
       - grpcwsgi-chrome
+      - grpcwebproxy-chrome
