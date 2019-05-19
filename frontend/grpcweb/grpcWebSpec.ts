@@ -1,13 +1,15 @@
 import * as grpcWeb from "grpc-web";
+
 import { EchoServiceClient } from "./proto/EchoServiceClientPb";
-import * as assert from 'assert';
 import { Duration } from "google-protobuf/google/protobuf/duration_pb";
+
 import {
   EchoRequest,
   EchoResponse,
   ServerStreamingEchoRequest,
   ServerStreamingEchoResponse
 } from "./proto/echo_pb";
+import * as assert from 'assert';
 
 var client: EchoServiceClient;
 
@@ -79,10 +81,6 @@ describe('grpc client', function () {
     req.setMessageInterval(interval);
     req.setMessage("test");
     const srv = client.serverStreamingEchoAbort(req);
-
-    srv.on("status", function (status: grpcWeb.Status) {
-      assert(status.code == grpcWeb.StatusCode.ABORTED);
-    });
 
     srv.on("end", function () {
       done();
