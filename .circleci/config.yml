@@ -29,7 +29,7 @@ jobs:
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:10000
       - run:
           working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080
+          command: "! ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080"
   grpcwebproxy-chrome:
     docker:
       - image: circleci/golang:latest-node-browsers
@@ -65,7 +65,7 @@ jobs:
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080
       - run:
           working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080
+          command: "! ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080"
   envoy-chrome:
     docker:
       - image: public/grpcweb-testing-envoy:latest
@@ -91,7 +91,7 @@ jobs:
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080
       - run:
           working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080
+          command: "! ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080"
   grpcwsgi-chrome:
     docker:
       - image: circleci/python:3.7-node-browsers
@@ -112,10 +112,10 @@ jobs:
           command: npm ci
       - run:
           working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:8080
+          command: "! ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:8080"
       - run:
           working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080
+          command: "! ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080"
 workflows:
   version: 2
   all:
