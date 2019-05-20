@@ -27,6 +27,9 @@ jobs:
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:10000
+      - run:
+          working_directory: frontend/
+          command: ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080
   grpcwebproxy-chrome:
     docker:
       - image: circleci/golang:latest-node-browsers
@@ -60,6 +63,9 @@ jobs:
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080
+      - run:
+          working_directory: frontend/
+          command: ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080
   envoy-chrome:
     docker:
       - image: public/grpcweb-testing-envoy:latest
