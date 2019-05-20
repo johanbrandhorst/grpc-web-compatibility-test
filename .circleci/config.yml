@@ -73,7 +73,7 @@ jobs:
           command: env ; ./server --grpc_port=9090
       - run:
           background: true
-          command: /usr/local/bin/envoy -c proxy/envoy/envoy.circleci.yaml -l trace
+          command: /usr/local/bin/envoy -c proxy/envoy/envoy.circleci.yaml -l info
       - run:
           working_directory: frontend/
           command: npm ci
