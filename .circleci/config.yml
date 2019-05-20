@@ -27,7 +27,7 @@ jobs:
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:10000
-      - run:
+      - run: # Expected to fail. https://github.com/johanbrandhorst/grpc-web-compatibility-test/issues/13
           working_directory: frontend/
           command: "! ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080"
   grpcwebproxy-chrome:
@@ -63,7 +63,7 @@ jobs:
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080
-      - run:
+      - run: # Expected to fail. https://github.com/johanbrandhorst/grpc-web-compatibility-test/issues/13
           working_directory: frontend/
           command: "! ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080"
   envoy-chrome:
@@ -89,7 +89,7 @@ jobs:
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080
-      - run:
+      - run: # Expected to fail. https://github.com/johanbrandhorst/grpc-web-compatibility-test/issues/13
           working_directory: frontend/
           command: "! ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080"
   grpcwsgi-chrome:
@@ -110,10 +110,10 @@ jobs:
       - run:
           working_directory: frontend/
           command: npm ci
-      - run:
+      - run: # Expected to fail. https://github.com/public/grpcWSGI/issues/4
           working_directory: frontend/
           command: "! ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:8080"
-      - run:
+      - run: # Expected to fail. https://github.com/public/grpcWSGI/issues/4
           working_directory: frontend/
           command: "! ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080"
 workflows:
