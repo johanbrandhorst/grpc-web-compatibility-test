@@ -11,3 +11,6 @@ generate:
 		--ts_out=service=true:/repo/frontend/improbable-ws/proto \
 		--go_out=plugins=grpc,path=source_relative,import_path=github.com/johanbrandhorst/grpc-web-compatibility-test/backend/proto/echo:/repo/backend/proto/ \
 		/repo/proto/echo/echo.proto
+
+envoy-circle-image:
+	docker build proxy/envoy --file proxy/envoy/Dockerfile.circleci --tag public/grpcweb-testing-envoy:latest

@@ -15,7 +15,7 @@ jobs:
       - checkout
       - run: go build ./...
       - run: go build -o ./inprocess github.com/johanbrandhorst/grpc-web-compatibility-test/proxy/inprocess
-      - run: 
+      - run:
           background: true
           command: ./inprocess
       - run:
@@ -35,11 +35,11 @@ jobs:
       - checkout
       - run: go build ./...
       - run: go build -o ./server github.com/johanbrandhorst/grpc-web-compatibility-test/backend
-      - run: 
+      - run:
           background: true
           command: ./server --grpc_port=9090
       - run: go build -o ./grpcwebproxy ./vendor/github.com/improbable-eng/grpc-web/go/grpcwebproxy
-      - run: 
+      - run:
           background: true
           command: >
             ./grpcwebproxy
@@ -60,6 +60,35 @@ jobs:
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080
+  envoy-chrome:
+    docker:
+      - image: public/grpcweb-testing-envoy:latest
+    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
+    steps:
+      - checkout
+      - run: go build ./...
+      - run: go build -o ./server github.com/johanbrandhorst/grpc-web-compatibility-test/backend
+      - run:
+          background: true
+          command: ./server --grpc_port=9090
+      - run:
+          background: true
+          command: /usr/local/bin/envoy -c proxy/envoy/envoy.yaml -l trace
+      - run:
+          working_directory: frontend/
+          command: npm ci
+      - run:
+          working_directory: frontend/
+          command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:8080
+      - run:
+          working_directory: frontend/
+          command: ./node_modules/.bin/grunt karma:improbableWS --grpc-host=http://localhost:8080
+      - run:
+          working_directory: frontend/
+          command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080
+      - run:
+          working_directory: frontend/
+          command: ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080
   grpcwsgi-chrome:
     docker:
       - image: circleci/python:3.7-node-browsers
@@ -72,7 +101,7 @@ jobs:
             --python_out=proxy/grpcwsgi/ \
             --grpc_python_out=proxy/grpcwsgi/ \
             proto/echo/echo.proto
-      - run: 
+      - run:
           background: true
           command: python ./proxy/grpcwsgi/server.py
       - run:
@@ -92,3 +121,4 @@ workflows:
       - inprocess-chrome
       - grpcwsgi-chrome
       - grpcwebproxy-chrome
+      - envoy-chrome
