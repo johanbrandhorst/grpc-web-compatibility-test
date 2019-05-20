@@ -70,7 +70,10 @@ jobs:
       - run: go build -o ./server github.com/johanbrandhorst/grpc-web-compatibility-test/backend
       - run:
           background: true
-          command: ./server --grpc_port=9090
+          environment:
+            GRPC_GO_LOG_SEVERITY_LEVEL: info
+            GODEBUG: http2debug=2
+          command: env ; ./server --grpc_port=9090
       - run:
           background: true
           command: /usr/local/bin/envoy -c proxy/envoy/envoy.circleci.yaml -l trace
