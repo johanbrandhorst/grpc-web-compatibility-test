@@ -83,6 +83,9 @@ jobs:
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080
+      - run:
+          working_directory: frontend/
+          command: ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080
   grpcwsgi-chrome:
     docker:
       - image: circleci/python:3.7-node-browsers
