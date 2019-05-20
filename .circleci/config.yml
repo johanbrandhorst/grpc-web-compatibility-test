@@ -70,7 +70,7 @@ jobs:
       - run: go build -o ./server github.com/johanbrandhorst/grpc-web-compatibility-test/backend
       - run:
           background: true
-          command: env ; ./server --grpc_port=9090
+          command: ./server --grpc_port=9090
       - run:
           background: true
           command: /usr/local/bin/envoy -c proxy/envoy/envoy.circleci.yaml -l info
