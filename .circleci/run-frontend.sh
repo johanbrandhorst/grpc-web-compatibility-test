@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-cd /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test/frontend
+cd /home/circleci/project/frontend
 
 npm ci
 
