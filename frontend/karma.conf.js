@@ -22,7 +22,7 @@ module.exports = function (config) {
     },
 
     // list of files / patterns to load in the browser
-    files: ['improbable/*Spec.ts'],
+    files: ['**/*Spec.ts'],
 
     // list of files / patterns to exclude
     exclude: [
