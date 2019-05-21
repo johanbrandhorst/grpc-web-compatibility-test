@@ -23,9 +23,9 @@ jobs:
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:10000
-      - run:
+      - run: # Expected to fail. https://github.com/johanbrandhorst/grpc-web-compatibility-test/issues/14
           working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:improbableWS --grpc-host=http://localhost:10000
+          command: "! ./node_modules/.bin/grunt karma:improbableWS --grpc-host=http://localhost:10000"
       - run:
           working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:10000
