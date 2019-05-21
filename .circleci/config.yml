@@ -97,13 +97,7 @@ jobs:
       - image: circleci/python:3.7-node-browsers
     steps:
       - checkout
-      - run: |
-          sudo pip install grpcio-tools grpcWSGI
-          python -m grpc.tools.protoc \
-            --proto_path=proto/echo \
-            --python_out=proxy/grpcwsgi/ \
-            --grpc_python_out=proxy/grpcwsgi/ \
-            proto/echo/echo.proto
+      - run: sudo pip install grpcWSGI
       - run:
           background: true
           command: python ./proxy/grpcwsgi/server.py

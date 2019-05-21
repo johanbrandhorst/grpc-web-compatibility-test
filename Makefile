@@ -12,5 +12,12 @@ generate:
 		--go_out=plugins=grpc,path=source_relative,import_path=github.com/johanbrandhorst/grpc-web-compatibility-test/backend/proto/echo:/repo/backend/proto/ \
 		/repo/proto/echo/echo.proto
 
+	docker run --rm -v $$(pwd):/repo jfbrandhorst/grpc-web-generators \
+		python3 -m grpc.tools.protoc \
+		--proto_path=/repo/proto/echo \
+		--python_out=/repo/proxy/grpcwsgi/ \
+		--grpc_python_out=/repo/proxy/grpcwsgi/ \
+		/repo/proto/echo/echo.proto
+
 envoy-circle-image:
 	docker build proxy/envoy --file proxy/envoy/Dockerfile.circleci --tag public/grpcweb-testing-envoy:latest
