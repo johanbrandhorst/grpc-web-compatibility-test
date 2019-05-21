@@ -7,31 +7,47 @@ jobs:
     steps:
       - checkout
       - run: go build ./...
-  inprocess-chrome:
+
+  inprocess-improbable-chrome:
     docker:
       - image: circleci/golang:latest-node-browsers
-    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
     steps:
       - checkout
-      - run: go build -o ./inprocess github.com/johanbrandhorst/grpc-web-compatibility-test/proxy/inprocess
       - run:
           background: true
-          command: ./inprocess
+          command: .circleci/start-inprocess.sh
+      - run: .circleci/run-frontend.sh improbable
+
+  inprocess-improbableWS-chrome:
+    docker:
+      - image: circleci/golang:latest-node-browsers
+    steps:
+      - checkout
       - run:
-          working_directory: frontend/
-          command: npm ci
+          background: true
+          command: .circleci/start-inprocess.sh
+      - run: .circleci/run-frontend.sh improbableWS
+
+  inprocess-grpcWeb-chrome:
+    docker:
+      - image: circleci/golang:latest-node-browsers
+    steps:
+      - checkout
       - run:
-          working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:10000
-      - run: # Expected to fail. https://github.com/johanbrandhorst/grpc-web-compatibility-test/issues/14
-          working_directory: frontend/
-          command: "! ./node_modules/.bin/grunt karma:improbableWS --grpc-host=http://localhost:10000"
+          background: true
+          command: .circleci/start-inprocess.sh
+      - run: .circleci/run-frontend.sh grpcWeb
+
+  inprocess-grpcWebText-chrome:
+    docker:
+      - image: circleci/golang:latest-node-browsers
+    steps:
+      - checkout
       - run:
-          working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:10000
-      - run: # Expected to fail. https://github.com/johanbrandhorst/grpc-web-compatibility-test/issues/13
-          working_directory: frontend/
-          command: "! ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:10000"
+          background: true
+          command: .circleci/start-inprocess.sh
+      - run: .circleci/run-frontend.sh grpcWebText
+
   grpcwebproxy-chrome:
     docker:
       - image: circleci/golang:latest-node-browsers
@@ -115,7 +131,10 @@ workflows:
   all:
     jobs:
       - build
-      - inprocess-chrome
+      - inprocess-improbable-chrome
+      - inprocess-improbableWS-chrome
+      - inprocess-grpcWeb-chrome
+      - inprocess-grpcWebText-chrome
       - grpcwsgi-chrome
       - grpcwebproxy-chrome
       - envoy-chrome
