@@ -25,10 +25,13 @@ jobs:
           command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:10000
       - run:
           working_directory: frontend/
+          command: ./node_modules/.bin/grunt karma:improbableWS --grpc-host=http://localhost:10000
+      - run:
+          working_directory: frontend/
           command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:10000
       - run: # Expected to fail. https://github.com/johanbrandhorst/grpc-web-compatibility-test/issues/13
           working_directory: frontend/
-          command: "! ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080"
+          command: "! ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:10000"
   grpcwebproxy-chrome:
     docker:
       - image: circleci/golang:latest-node-browsers
