@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
 
-sudo pip install grpcWSGI
+sudo pip install grpcio grpcWSGI
 
 python ./proxy/grpcwsgi/server.py
