@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run: go build ./...
 
-  template-job:
+  template-job: &template-job
     docker:
       - image: circleci/golang:latest-node-browsers
     working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
