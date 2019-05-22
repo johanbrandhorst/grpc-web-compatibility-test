@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-cd /home/circleci/project/frontend
+cd ./frontend
 
 npm ci
 
