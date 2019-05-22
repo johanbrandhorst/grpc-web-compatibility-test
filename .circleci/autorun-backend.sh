@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-IFS='-' read -r -a JOB_ARGS <<< "$CIRCLE_JOB"
+CLEAN_JOB=$(echo $CIRCLE_JOB | sed -e 's/xfail-//')
+IFS='-' read -r -a JOB_ARGS <<< "$CLEAN_JOB"
 
 BACKEND_TYPE=${JOB_ARGS[0]}
 

@@ -16,13 +16,13 @@ jobs:
   inprocess-improbable-chrome:
     <<: *golang-template-job
 
-  inprocess-improbableWS-chrome:
+  xfail-inprocess-improbableWS-chrome:
     <<: *golang-template-job
 
   inprocess-grpcWeb-chrome:
     <<: *golang-template-job
 
-  inprocess-grpcWebText-chrome:
+  xfail-inprocess-grpcWebText-chrome:
     <<: *golang-template-job
 
   grpcwebproxy-improbable-chrome:
@@ -34,7 +34,7 @@ jobs:
   grpcwebproxy-grpcWeb-chrome:
     <<: *golang-template-job
 
-  grpcwebproxy-grpcWebText-chrome:
+  xfail-grpcwebproxy-grpcWebText-chrome:
     <<: *golang-template-job
 
   envoy-template-job: &envoy-template-job
@@ -48,7 +48,7 @@ jobs:
   envoy-grpcWeb-chrome:
     <<: *envoy-template-job
 
-  envoy-grpcWebText-chrome:
+  xfail-envoy-grpcWebText-chrome:
     <<: *envoy-template-job
 
   grpcwsgi-template-job: &grpcwsgi-template-job
@@ -56,10 +56,10 @@ jobs:
     docker:
       - image: circleci/python:3.7-node-browsers
 
-  grpcwsgi-improbable-chrome:
+  xfail-grpcwsgi-improbable-chrome:
     <<: *grpcwsgi-template-job
 
-  grpcwsgi-grpcWeb-chrome:
+  xfail-grpcwsgi-grpcWeb-chrome:
     <<: *grpcwsgi-template-job
 
 workflows:
@@ -67,15 +67,15 @@ workflows:
   all:
     jobs:
       - inprocess-improbable-chrome
-      - inprocess-improbableWS-chrome
+      - xfail-inprocess-improbableWS-chrome
       - inprocess-grpcWeb-chrome
-      - inprocess-grpcWebText-chrome
+      - xfail-inprocess-grpcWebText-chrome
       - grpcwebproxy-improbable-chrome
       - grpcwebproxy-improbableWS-chrome
       - grpcwebproxy-grpcWeb-chrome
-      - grpcwebproxy-grpcWebText-chrome
+      - xfail-grpcwebproxy-grpcWebText-chrome
       - envoy-improbable-chrome
       - envoy-grpcWeb-chrome
-      - envoy-grpcWebText-chrome
-      - grpcwsgi-improbable-chrome
-      - grpcwsgi-grpcWeb-chrome
+      - xfail-envoy-grpcWebText-chrome
+      - xfail-grpcwsgi-improbable-chrome
+      - xfail-grpcwsgi-grpcWeb-chrome
