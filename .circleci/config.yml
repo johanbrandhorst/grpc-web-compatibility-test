@@ -17,7 +17,7 @@ jobs:
       - run:
           background: true
           command: .circleci/start-inprocess.sh
-      - run: .circleci/run-frontend.sh improbable
+      - run: .circleci/run-frontend.sh improbable 10000
 
   inprocess-improbableWS-chrome:
     docker:
@@ -28,7 +28,7 @@ jobs:
       - run:
           background: true
           command: .circleci/start-inprocess.sh
-      - run: .circleci/run-frontend.sh improbableWS
+      - run: .circleci/run-frontend.sh improbableWS 10000
 
   inprocess-grpcWeb-chrome:
     docker:
@@ -39,7 +39,7 @@ jobs:
       - run:
           background: true
           command: .circleci/start-inprocess.sh
-      - run: .circleci/run-frontend.sh grpcWeb
+      - run: .circleci/run-frontend.sh grpcWeb 10000
 
   inprocess-grpcWebText-chrome:
     docker:
@@ -50,7 +50,7 @@ jobs:
       - run:
           background: true
           command: .circleci/start-inprocess.sh
-      - run: .circleci/run-frontend.sh grpcWebText
+      - run: .circleci/run-frontend.sh grpcWebText 10000
 
   grpcwebproxy-improbable-chrome:
     docker:
@@ -61,7 +61,7 @@ jobs:
       - run:
           background: true
           command: .circleci/start-grpcwebproxy.sh
-      - run: .circleci/run-frontend.sh improbable
+      - run: .circleci/run-frontend.sh improbable 8080
 
   grpcwebproxy-improbableWS-chrome:
     docker:
@@ -72,7 +72,7 @@ jobs:
       - run:
           background: true
           command: .circleci/start-grpcwebproxy.sh
-      - run: .circleci/run-frontend.sh improbableWS
+      - run: .circleci/run-frontend.sh improbableWS 8080
 
   grpcwebproxy-grpcWeb-chrome:
     docker:
@@ -83,7 +83,7 @@ jobs:
       - run:
           background: true
           command: .circleci/start-grpcwebproxy.sh
-      - run: .circleci/run-frontend.sh grpcWeb
+      - run: .circleci/run-frontend.sh grpcWeb 8080
 
   grpcwebproxy-grpcWebText-chrome:
     docker:
@@ -94,7 +94,7 @@ jobs:
       - run:
           background: true
           command: .circleci/start-grpcwebproxy.sh
-      - run: .circleci/run-frontend.sh grpcWebText
+      - run: .circleci/run-frontend.sh grpcWebText 8080
 
   envoy-chrome:
     docker:
