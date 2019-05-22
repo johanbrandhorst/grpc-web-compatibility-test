@@ -90,5 +90,7 @@ workflows:
       - grpcwebproxy-improbableWS-chrome
       - grpcwebproxy-grpcWeb-chrome
       - grpcwebproxy-grpcWebText-chrome
-      - envoy-chrome
+      - envoy-improbable-chrome
+      - envoy-grpcWeb-chrome
+      - envoy-grpcWebText-chrome
       - grpcwsgi-chrome
