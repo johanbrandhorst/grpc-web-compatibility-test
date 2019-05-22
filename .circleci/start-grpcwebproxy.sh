@@ -12,5 +12,4 @@ go build -o ./grpcwebproxy ./vendor/github.com/improbable-eng/grpc-web/go/grpcwe
     --backend_tls_noverify=true \
     --run_tls_server=false \
     --use_websockets=true \
-    --allow_all_origins=true \
-    --grpc_port=10000
+    --allow_all_origins=true
