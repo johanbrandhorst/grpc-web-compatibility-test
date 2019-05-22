@@ -11,6 +11,7 @@ jobs:
   inprocess-improbable-chrome:
     docker:
       - image: circleci/golang:latest-node-browsers
+    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
     steps:
       - checkout
       - run:
@@ -21,6 +22,7 @@ jobs:
   inprocess-improbableWS-chrome:
     docker:
       - image: circleci/golang:latest-node-browsers
+    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
     steps:
       - checkout
       - run:
@@ -31,6 +33,7 @@ jobs:
   inprocess-grpcWeb-chrome:
     docker:
       - image: circleci/golang:latest-node-browsers
+    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
     steps:
       - checkout
       - run:
@@ -41,6 +44,7 @@ jobs:
   inprocess-grpcWebText-chrome:
     docker:
       - image: circleci/golang:latest-node-browsers
+    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
     steps:
       - checkout
       - run:
