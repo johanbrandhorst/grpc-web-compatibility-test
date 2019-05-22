@@ -1,17 +1,6 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: golang:latest
-    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
-    steps:
-      - checkout
-      - run: go build ./...
-
   template-job: &template-job
-    docker:
-      - image: circleci/golang:latest-node-browsers
-    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
     steps:
       - checkout
       - run:
@@ -19,69 +8,65 @@ jobs:
           command: .circleci/autorun-backend.sh
       - run: .circleci/autorun-frontend.sh
 
+  golang-template-job: &golang-template-job
+    <<: *template-job
+    docker:
+      - image: circleci/golang:latest-node-browsers
+    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
 
   inprocess-improbable-chrome:
-    <<: *template-job
+    <<: *golang-template-job
 
   inprocess-improbableWS-chrome:
-    <<: *template-job
+    <<: *golang-template-job
 
   inprocess-grpcWeb-chrome:
-    <<: *template-job
+    <<: *golang-template-job
 
   inprocess-grpcWebText-chrome:
-    <<: *template-job
+    <<: *golang-template-job
 
   grpcwebproxy-improbable-chrome:
-    <<: *template-job
+    <<: *golang-template-job
 
   grpcwebproxy-improbableWS-chrome:
-    <<: *template-job
+    <<: *golang-template-job
 
   grpcwebproxy-grpcWeb-chrome:
-    <<: *template-job
+    <<: *golang-template-job
 
   grpcwebproxy-grpcWebText-chrome:
-    <<: *template-job
+    <<: *golang-template-job
+
+  envoy-template-job: &envoy-template-job
+    <<: *golang-template-job
+    docker:
+      - image: public/grpcweb-testing-envoy:latest
 
   envoy-improbable-chrome:
-    <<: *template-job
-    docker:
-      - image: public/grpcweb-testing-envoy:latest
+    <<: *envoy-template-job
 
   envoy-grpcWeb-chrome:
-    <<: *template-job
-    docker:
-      - image: public/grpcweb-testing-envoy:latest
+    <<: *envoy-template-job
 
   envoy-grpcWebText-chrome:
+    <<: *envoy-template-job
+
+  grpcwsgi-template-job: &grpcwsgi-template-job
     <<: *template-job
     docker:
-      - image: public/grpcweb-testing-envoy:latest
-
-  grpcwsgi-chrome:
-    docker:
       - image: circleci/python:3.7-node-browsers
-    steps:
-      - checkout
-      - run: sudo pip install grpcWSGI
-      - run:
-          background: true
-          command: python ./proxy/grpcwsgi/server.py
-      - run:
-          working_directory: frontend/
-          command: npm ci
-      - run: # Expected to fail. https://github.com/public/grpcWSGI/issues/4
-          working_directory: frontend/
-          command: "! ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:8080"
-      - run: # Expected to fail. https://github.com/public/grpcWSGI/issues/4
-          working_directory: frontend/
-          command: "! ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080"
+
+  grpcwsgi-improbable-chrome:
+    <<: *grpcwsgi-template-job
+
+  grpcwsgi-grpcWeb-chrome:
+    <<: *grpcwsgi-template-job
+
 workflows:
   version: 2
   all:
     jobs:
-      - build
       - inprocess-improbable-chrome
       - inprocess-improbableWS-chrome
       - inprocess-grpcWeb-chrome
@@ -93,4 +78,5 @@ workflows:
       - envoy-improbable-chrome
       - envoy-grpcWeb-chrome
       - envoy-grpcWebText-chrome
-      - grpcwsgi-chrome
+      - grpcwsgi-improbable-chrome
+      - grpcwsgi-grpcWeb-chrome
