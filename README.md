@@ -71,15 +71,11 @@ Note: The websocket transport is not part of the grpc-web spec.
 
 ## Running
 
-1. Start the gRPC server
-   ```bash
-   $ docker-compose up -d echo-server
-   ```
-2. Start the proxy of your choice (`envoy`, `grpcwebproxy`, `inprocess`, `grpcwsgi`)
+1. Start the server implementation of your choice (`envoy`, `grpcwebproxy`, `inprocess`, `grpcwsgi`)
    ```bash
    $ docker-compose up -d grpcwebproxy
    ```
-3. Run the frontend tests of your choice (`improbable`, `improbable-ws`, `grpcweb`, `grpcwebtext`)
+2. Run the frontend tests of your choice (`improbable`, `improbableWS`, `grpcWeb`, `grpcWebtext`)
    ```bash
    $ docker-compose run frontend karma:improbable --grpc-host=http://inprocess:8080
    ```
@@ -112,3 +108,17 @@ the `echo-server` container on up.
 1. `grpcweb` allows server streaming methods to be called, but it doesn't return data until the stream has closed.
    [(issue)](https://github.com/grpc/grpc-web/issues/344)
 2. `improbable-ws` implements a non-standard websocket transport for client-side and bi-directional streams.
+
+## Building
+
+Most of the build is managed by docker-compose but you may also want to manually rebuild some
+other things sometimes. Makefile commands are provided for building the protobuf bindings for
+all implementations and for rebuilding the Envoy container used in CI as this needs additional
+configuration.
+
+To rebuild the protobuf bindings just run `make generate` and commit the new bindings. You
+will probably only need to do this when adding a new implementation.
+
+To rebuild the Envoy CI image, run `make envoy-circle-image`. If you happen to be a contributor
+you'll also be able to do `docker push public/grpcweb-testing-envoy:latest` to push the new image
+to Docker Hub.
