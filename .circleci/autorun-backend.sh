@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 IFS='-' read -r -a JOB_ARGS <<< "$CIRCLE_JOB"
