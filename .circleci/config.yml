@@ -1,13 +1,12 @@
 version: 2
+template-job: &template-job
+  steps:
+    - checkout
+    - run:
+        background: true
+        command: .circleci/autorun-backend.sh
+    - run: .circleci/autorun-frontend.sh
 jobs:
-  template-job: &template-job
-    steps:
-      - checkout
-      - run:
-          background: true
-          command: .circleci/autorun-backend.sh
-      - run: .circleci/autorun-frontend.sh
-
   golang-template-job: &golang-template-job
     <<: *template-job
     docker:
