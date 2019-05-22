@@ -6,9 +6,4 @@ go build -o ./grpcwebproxy ./vendor/github.com/improbable-eng/grpc-web/go/grpcwe
 
 ./server --grpc_port=9090 &
 
-./grpcwebproxy \
-    --backend_addr=dns:///localhost:9090 \
-    --backend_tls_noverify=true \
-    --run_tls_server=false \
-    --use_websockets=true \
-    --allow_all_origins=true
+/usr/local/bin/envoy -c proxy/envoy/envoy.circleci.yaml -l info

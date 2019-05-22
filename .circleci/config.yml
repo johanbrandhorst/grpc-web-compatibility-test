@@ -44,31 +44,21 @@ jobs:
   grpcwebproxy-grpcWebText-chrome:
     <<: *template-job
 
-  envoy-chrome:
+  envoy-improbable-chrome:
+    <<: *template-job
     docker:
       - image: public/grpcweb-testing-envoy:latest
-    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
-    steps:
-      - checkout
-      - run: go build -o ./server github.com/johanbrandhorst/grpc-web-compatibility-test/backend
-      - run:
-          background: true
-          command: ./server --grpc_port=9090
-      - run:
-          background: true
-          command: /usr/local/bin/envoy -c proxy/envoy/envoy.circleci.yaml -l info
-      - run:
-          working_directory: frontend/
-          command: npm ci
-      - run:
-          working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:8080
-      - run:
-          working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080
-      - run: # Expected to fail. https://github.com/johanbrandhorst/grpc-web-compatibility-test/issues/13
-          working_directory: frontend/
-          command: "! ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080"
+
+  envoy-grpcWeb-chrome:
+    <<: *template-job
+    docker:
+      - image: public/grpcweb-testing-envoy:latest
+
+  envoy-grpcWebText-chrome:
+    <<: *template-job
+    docker:
+      - image: public/grpcweb-testing-envoy:latest
+
   grpcwsgi-chrome:
     docker:
       - image: circleci/python:3.7-node-browsers

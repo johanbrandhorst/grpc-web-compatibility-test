@@ -9,5 +9,6 @@ FRONTEND_TYPE=${JOB_ARGS[1]}
 declare -A BACKEND_PORTS
 BACKEND_PORTS[inprocess]=10000
 BACKEND_PORTS[grpcwebproxy]=8080
+BACKEND_PORTS[envoy]=8080
 
 ./.circleci/run-frontend.sh $FRONTEND_TYPE ${BACKEND_PORTS[$BACKEND_TYPE]}
