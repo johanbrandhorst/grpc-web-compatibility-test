@@ -3,4 +3,4 @@ set -e
 
 sudo pip install grpcio grpcWSGI
 
-python ./proxy/grpcwsgi/server.py
+python3 ./proxy/grpcwsgi/server.py
