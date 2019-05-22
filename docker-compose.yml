@@ -28,8 +28,6 @@ services:
       dockerfile: ./proxy/inprocess/Dockerfile
     ports:
       - '8080:8080'
-    command:
-      - --grpc_port=8080
   envoy:
     build:
       context: ./
@@ -44,27 +42,6 @@ services:
       dockerfile: ./proxy/grpcwsgi/Dockerfile
     ports:
       - '8080:8080'
-  improbable:
+  frontend:
     build:
-      context: ./
-      dockerfile: ./frontend/improbable/Dockerfile
-    ports:
-      - '80:10000'
-  improbable-ws:
-    build:
-      context: ./
-      dockerfile: ./frontend/improbable-ws/Dockerfile
-    ports:
-      - '80:10000'
-  grpcweb:
-    build:
-      context: ./
-      dockerfile: ./frontend/grpcweb/Dockerfile
-    ports:
-      - '80:10000'
-  grpcwebtext:
-    build:
-      context: ./
-      dockerfile: ./frontend/grpcwebtext/Dockerfile
-    ports:
-      - '80:10000'
+      context: ./frontend

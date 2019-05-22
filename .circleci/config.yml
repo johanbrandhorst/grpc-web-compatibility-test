@@ -1,14 +1,81 @@
 version: 2
+template-job: &template-job
+  steps:
+    - checkout
+    - run:
+        background: true
+        command: .circleci/autorun-backend.sh
+    - run: .circleci/autorun-frontend.sh
 jobs:
-  build:
+  golang-template-job: &golang-template-job
+    <<: *template-job
     docker:
-      - image: golang:latest
+      - image: circleci/golang:latest-node-browsers
     working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
-    steps:
-      - checkout
-      - run: go build ./...
+
+  inprocess-improbable-chrome:
+    <<: *golang-template-job
+
+  xfail-inprocess-improbableWS-chrome:
+    <<: *golang-template-job
+
+  inprocess-grpcWeb-chrome:
+    <<: *golang-template-job
+
+  xfail-inprocess-grpcWebText-chrome:
+    <<: *golang-template-job
+
+  grpcwebproxy-improbable-chrome:
+    <<: *golang-template-job
+
+  grpcwebproxy-improbableWS-chrome:
+    <<: *golang-template-job
+
+  grpcwebproxy-grpcWeb-chrome:
+    <<: *golang-template-job
+
+  xfail-grpcwebproxy-grpcWebText-chrome:
+    <<: *golang-template-job
+
+  envoy-template-job: &envoy-template-job
+    <<: *golang-template-job
+    docker:
+      - image: public/grpcweb-testing-envoy:latest
+
+  envoy-improbable-chrome:
+    <<: *envoy-template-job
+
+  envoy-grpcWeb-chrome:
+    <<: *envoy-template-job
+
+  xfail-envoy-grpcWebText-chrome:
+    <<: *envoy-template-job
+
+  grpcwsgi-template-job: &grpcwsgi-template-job
+    <<: *template-job
+    docker:
+      - image: circleci/python:3.7-node-browsers
+
+  xfail-grpcwsgi-improbable-chrome:
+    <<: *grpcwsgi-template-job
+
+  xfail-grpcwsgi-grpcWeb-chrome:
+    <<: *grpcwsgi-template-job
+
 workflows:
   version: 2
   all:
     jobs:
-      - build
+      - inprocess-improbable-chrome
+      - xfail-inprocess-improbableWS-chrome
+      - inprocess-grpcWeb-chrome
+      - xfail-inprocess-grpcWebText-chrome
+      - grpcwebproxy-improbable-chrome
+      - grpcwebproxy-improbableWS-chrome
+      - grpcwebproxy-grpcWeb-chrome
+      - xfail-grpcwebproxy-grpcWebText-chrome
+      - envoy-improbable-chrome
+      - envoy-grpcWeb-chrome
+      - xfail-envoy-grpcWebText-chrome
+      - xfail-grpcwsgi-improbable-chrome
+      - xfail-grpcwsgi-grpcWeb-chrome
