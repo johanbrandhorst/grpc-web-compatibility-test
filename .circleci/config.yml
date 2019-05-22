@@ -34,7 +34,7 @@ jobs:
   grpcwebproxy-grpcWeb-chrome:
     <<: *golang-template-job
 
-  xfail-grpcwebproxy-grpcWebText-chrome:
+  grpcwebproxy-grpcWebText-chrome:
     <<: *golang-template-job
 
   envoy-template-job: &envoy-template-job
@@ -73,7 +73,7 @@ workflows:
       - grpcwebproxy-improbable-chrome
       - grpcwebproxy-improbableWS-chrome
       - grpcwebproxy-grpcWeb-chrome
-      - xfail-grpcwebproxy-grpcWebText-chrome
+      - grpcwebproxy-grpcWebText-chrome
       - envoy-improbable-chrome
       - envoy-grpcWeb-chrome
       - xfail-envoy-grpcWebText-chrome
