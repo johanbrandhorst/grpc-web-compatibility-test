@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run: go build ./...
 
-  inprocess-improbable-chrome:
+  template-job:
     docker:
       - image: circleci/golang:latest-node-browsers
     working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
@@ -16,85 +16,33 @@ jobs:
       - checkout
       - run:
           background: true
-          command: .circleci/start-inprocess.sh
-      - run: .circleci/run-frontend.sh improbable 10000
+          command: .circleci/autorun-backend.sh
+      - run: .circleci/autorun-frontend.sh
+
+
+  inprocess-improbable-chrome:
+    <<: *template-job
 
   inprocess-improbableWS-chrome:
-    docker:
-      - image: circleci/golang:latest-node-browsers
-    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
-    steps:
-      - checkout
-      - run:
-          background: true
-          command: .circleci/start-inprocess.sh
-      - run: .circleci/run-frontend.sh improbableWS 10000
+    <<: *template-job
 
   inprocess-grpcWeb-chrome:
-    docker:
-      - image: circleci/golang:latest-node-browsers
-    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
-    steps:
-      - checkout
-      - run:
-          background: true
-          command: .circleci/start-inprocess.sh
-      - run: .circleci/run-frontend.sh grpcWeb 10000
+    <<: *template-job
 
   inprocess-grpcWebText-chrome:
-    docker:
-      - image: circleci/golang:latest-node-browsers
-    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
-    steps:
-      - checkout
-      - run:
-          background: true
-          command: .circleci/start-inprocess.sh
-      - run: .circleci/run-frontend.sh grpcWebText 10000
+    <<: *template-job
 
   grpcwebproxy-improbable-chrome:
-    docker:
-      - image: circleci/golang:latest-node-browsers
-    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
-    steps:
-      - checkout
-      - run:
-          background: true
-          command: .circleci/start-grpcwebproxy.sh
-      - run: .circleci/run-frontend.sh improbable 8080
+    <<: *template-job
 
   grpcwebproxy-improbableWS-chrome:
-    docker:
-      - image: circleci/golang:latest-node-browsers
-    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
-    steps:
-      - checkout
-      - run:
-          background: true
-          command: .circleci/start-grpcwebproxy.sh
-      - run: .circleci/run-frontend.sh improbableWS 8080
+    <<: *template-job
 
   grpcwebproxy-grpcWeb-chrome:
-    docker:
-      - image: circleci/golang:latest-node-browsers
-    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
-    steps:
-      - checkout
-      - run:
-          background: true
-          command: .circleci/start-grpcwebproxy.sh
-      - run: .circleci/run-frontend.sh grpcWeb 8080
+    <<: *template-job
 
   grpcwebproxy-grpcWebText-chrome:
-    docker:
-      - image: circleci/golang:latest-node-browsers
-    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
-    steps:
-      - checkout
-      - run:
-          background: true
-          command: .circleci/start-grpcwebproxy.sh
-      - run: .circleci/run-frontend.sh grpcWebText 8080
+    <<: *template-job
 
   envoy-chrome:
     docker:
