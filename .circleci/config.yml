@@ -52,41 +52,50 @@ jobs:
           command: .circleci/start-inprocess.sh
       - run: .circleci/run-frontend.sh grpcWebText
 
-  grpcwebproxy-chrome:
+  grpcwebproxy-improbable-chrome:
     docker:
       - image: circleci/golang:latest-node-browsers
     working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
     steps:
       - checkout
-      - run: go build -o ./server github.com/johanbrandhorst/grpc-web-compatibility-test/backend
       - run:
           background: true
-          command: ./server --grpc_port=9090
-      - run: go build -o ./grpcwebproxy ./vendor/github.com/improbable-eng/grpc-web/go/grpcwebproxy
+          command: .circleci/start-grpcwebproxy.sh
+      - run: .circleci/run-frontend.sh improbable
+
+  grpcwebproxy-improbableWS-chrome:
+    docker:
+      - image: circleci/golang:latest-node-browsers
+    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
+    steps:
+      - checkout
       - run:
           background: true
-          command: >
-            ./grpcwebproxy
-            --backend_addr=dns:///localhost:9090
-            --backend_tls_noverify=true
-            --run_tls_server=false
-            --use_websockets=true
-            --allow_all_origins=true
+          command: .circleci/start-grpcwebproxy.sh
+      - run: .circleci/run-frontend.sh improbableWS
+
+  grpcwebproxy-grpcWeb-chrome:
+    docker:
+      - image: circleci/golang:latest-node-browsers
+    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
+    steps:
+      - checkout
       - run:
-          working_directory: frontend/
-          command: npm ci
+          background: true
+          command: .circleci/start-grpcwebproxy.sh
+      - run: .circleci/run-frontend.sh grpcWeb
+
+  grpcwebproxy-grpcWebText-chrome:
+    docker:
+      - image: circleci/golang:latest-node-browsers
+    working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
+    steps:
+      - checkout
       - run:
-          working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:improbable --grpc-host=http://localhost:8080
-      - run:
-          working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:improbableWS --grpc-host=http://localhost:8080
-      - run:
-          working_directory: frontend/
-          command: ./node_modules/.bin/grunt karma:grpcWeb --grpc-host=http://localhost:8080
-      - run: # Expected to fail. https://github.com/johanbrandhorst/grpc-web-compatibility-test/issues/13
-          working_directory: frontend/
-          command: "! ./node_modules/.bin/grunt karma:grpcWebText --grpc-host=http://localhost:8080"
+          background: true
+          command: .circleci/start-grpcwebproxy.sh
+      - run: .circleci/run-frontend.sh grpcWebText
+
   envoy-chrome:
     docker:
       - image: public/grpcweb-testing-envoy:latest
@@ -139,6 +148,9 @@ workflows:
       - inprocess-improbableWS-chrome
       - inprocess-grpcWeb-chrome
       - inprocess-grpcWebText-chrome
-      - grpcwsgi-chrome
-      - grpcwebproxy-chrome
+      - grpcwebproxy-improbable-chrome
+      - grpcwebproxy-improbableWS-chrome
+      - grpcwebproxy-grpcWeb-chrome
+      - grpcwebproxy-grpcWebText-chrome
       - envoy-chrome
+      - grpcwsgi-chrome
