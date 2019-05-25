@@ -200,10 +200,10 @@ EchoServiceClient.prototype.serverStreamingEcho = function serverStreamingEcho(r
       });
     },
     onEnd: function (status, statusMessage, trailers) {
-      listeners.end.forEach(function (handler) {
-        handler();
-      });
       listeners.status.forEach(function (handler) {
+        handler({ code: status, details: statusMessage, metadata: trailers });
+      });
+      listeners.end.forEach(function (handler) {
         handler({ code: status, details: statusMessage, metadata: trailers });
       });
       listeners = null;
@@ -239,10 +239,10 @@ EchoServiceClient.prototype.serverStreamingEchoAbort = function serverStreamingE
       });
     },
     onEnd: function (status, statusMessage, trailers) {
-      listeners.end.forEach(function (handler) {
-        handler();
-      });
       listeners.status.forEach(function (handler) {
+        handler({ code: status, details: statusMessage, metadata: trailers });
+      });
+      listeners.end.forEach(function (handler) {
         handler({ code: status, details: statusMessage, metadata: trailers });
       });
       listeners = null;
@@ -271,10 +271,10 @@ EchoServiceClient.prototype.clientStreamingEcho = function clientStreamingEcho(m
     transport: this.options.transport
   });
   client.onEnd(function (status, statusMessage, trailers) {
-    listeners.end.forEach(function (handler) {
-      handler();
-    });
     listeners.status.forEach(function (handler) {
+      handler({ code: status, details: statusMessage, metadata: trailers });
+    });
+    listeners.end.forEach(function (handler) {
       handler({ code: status, details: statusMessage, metadata: trailers });
     });
     listeners = null;
@@ -313,10 +313,10 @@ EchoServiceClient.prototype.fullDuplexEcho = function fullDuplexEcho(metadata) {
     transport: this.options.transport
   });
   client.onEnd(function (status, statusMessage, trailers) {
-    listeners.end.forEach(function (handler) {
-      handler();
-    });
     listeners.status.forEach(function (handler) {
+      handler({ code: status, details: statusMessage, metadata: trailers });
+    });
+    listeners.end.forEach(function (handler) {
       handler({ code: status, details: statusMessage, metadata: trailers });
     });
     listeners = null;
@@ -358,10 +358,10 @@ EchoServiceClient.prototype.halfDuplexEcho = function halfDuplexEcho(metadata) {
     transport: this.options.transport
   });
   client.onEnd(function (status, statusMessage, trailers) {
-    listeners.end.forEach(function (handler) {
-      handler();
-    });
     listeners.status.forEach(function (handler) {
+      handler({ code: status, details: statusMessage, metadata: trailers });
+    });
+    listeners.end.forEach(function (handler) {
       handler({ code: status, details: statusMessage, metadata: trailers });
     });
     listeners = null;
