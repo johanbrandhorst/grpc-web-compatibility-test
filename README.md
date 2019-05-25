@@ -11,20 +11,16 @@ Test various implementations of gRPC-Web Clients with various implementations of
 
   The client created by Improbable, leveraging Fetch/XHR,
   available at https://github.com/improbable-eng/grpc-web/tree/master/ts.
-  It uses the `application/grpc-web` content-type.
 
 - `grpcWeb`
 
   The client created by Google and the gRPC organisation,
   available at https://github.com/grpc/grpc-web, generated with `mode=grpcweb`.
-  It uses XHR and the `application/grpc-web` content-type.
-  It does not support server-side streaming.
 
 - `grpcWebText`
 
   The client created by Google and the gRPC organisation,
   available at https://github.com/grpc/grpc-web, generated with `mode=grpcwebtext`.
-  It uses XHR and the `application/grpc-web-text` content-type.
 
 #### Non-gRPC-Web clients tested
 
@@ -32,8 +28,7 @@ Test various implementations of gRPC-Web Clients with various implementations of
 
   The client created by Improbable, leveraging an experimental websocket transport,
   available at https://github.com/improbable-eng/grpc-web/tree/master/ts.
-  It uses the `application/grpc-web` content-type. It is not part of the
-  gRPC-Web spec, and not recommended for production use.
+  It is not part of the gRPC-Web spec, and not recommended for production use.
 
 ### Proxies
 
@@ -41,29 +36,23 @@ Test various implementations of gRPC-Web Clients with various implementations of
 
   The proxy created by Improbable,
   available at https://github.com/improbable-eng/grpc-web/tree/master/go/grpcwebproxy.
-  It supports both Fetch/XHR and websockets transports.
-  It supports the `application/grpc-web` content-type only.
 
 - `inprocess`
 
   The same as `grpcwebproxy`, but running as an in-process proxy to a Go gRPC
   server.
-  It supports both Fetch/XHR and websockets transports.
-  It supports the `application/grpc-web` content-type only.
 
 - `envoy`
 
   The Envoy Proxy HTTP filter implementation created for the `grpc/grpc-web` project,
   available at https://github.com/envoyproxy/envoy/tree/master/source/extensions/filters/http/grpc_web.
-  It supports XHR and both the `application/grpc-web` and `application/grpc-web-text` content-types.
 
 - `grpcwsgi`
 
-  A Python WSGI compatible implementation of gRPC-Web, available at https://github.com/public/grpcWSGI.
-  It supports Fetch/XHR only.
-  It supports `application/grpc-web` only.
+  A Python WSGI compatible implementation of gRPC-Web, available at
+  https://github.com/public/grpcWSGI.
 
-Note: The websocket transport is not part of the grpc-web spec.
+Note: The websocket transport is not part of the gRPC-Web spec.
 
 ## Requirements
 
@@ -75,16 +64,17 @@ Note: The websocket transport is not part of the grpc-web spec.
    ```bash
    $ docker-compose up -d grpcwebproxy
    ```
-2. Run the frontend tests of your choice (`improbable`, `improbableWS`, `grpcWeb`, `grpcWebtext`)
+2. Run the frontend tests of your choice (`improbable`, `improbableWS`, `grpcWeb`, `grpcWebtext`).
+    Use the name of the chosen proxy in the `grpc-host` flag.
    ```bash
-   $ docker-compose run frontend karma:improbable --grpc-host=http://inprocess:8080
+   $ docker-compose run frontend karma:improbable --grpc-host=http://grpcwebproxy:8080
    ```
 
 Note: The `inprocess` and `grpcwsgi` proxies do not require `echo-server` to be running,
 they include the server themselves. `envoy` and `grpcwebproxy` will automatically start
 the `echo-server` container on up.
 
-## Compatbility status
+## Proxy/Client compatbility status
 
 | Proxy / Client | `improbable` | `grpcWeb` | `grpcWebText` | `improbableWS` [1] |
 | -------------- | ------------ | --------- | ------------- | ------------------- |
@@ -95,7 +85,7 @@ the `echo-server` container on up.
 
 1. `improbable-ws` implements a non-standard websocket transport.
 
-## Capability matrix
+## Client capability matrix
 
 | Client / Feature    | `application/grpc-web` | `application/grpc-web-text` | Unary | Server Streams | Client+Bidi streaming |
 | ------------------- | ---------------------- | --------------------------- | ----- | -------------- | --------------------- |
