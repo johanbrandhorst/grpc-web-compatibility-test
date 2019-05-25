@@ -13,14 +13,14 @@ Test various implementations of gRPC-Web Clients with various implementations of
   available at https://github.com/improbable-eng/grpc-web/tree/master/ts.
   It uses the `application/grpc-web` content-type.
 
-- `grpcweb`
+- `grpcWeb`
 
   The client created by Google and the gRPC organisation,
   available at https://github.com/grpc/grpc-web, generated with `mode=grpcweb`.
   It uses XHR and the `application/grpc-web` content-type.
   It does not support server-side streaming.
 
-- `grpcwebtext`
+- `grpcWebText`
 
   The client created by Google and the gRPC organisation,
   available at https://github.com/grpc/grpc-web, generated with `mode=grpcwebtext`.
@@ -28,7 +28,7 @@ Test various implementations of gRPC-Web Clients with various implementations of
 
 #### Non-gRPC-Web clients tested
 
-- `improbable-ws`
+- `improbableWS`
 
   The client created by Improbable, leveraging an experimental websocket transport,
   available at https://github.com/improbable-eng/grpc-web/tree/master/ts.
@@ -86,7 +86,7 @@ the `echo-server` container on up.
 
 ## Compatbility status
 
-| Proxy / Client | `improbable` | `grpcweb` | `grpcwebtext` | `improbable-ws` [1] |
+| Proxy / Client | `improbable` | `grpcWeb` | `grpcWebText` | `improbableWS` [1] |
 | -------------- | ------------ | --------- | ------------- | ------------------- |
 | `envoy`        | ✔️           | ✔️️       | ✔️            | ❌                   |
 | `grpcwebproxy` | ✔️️          | ✔️        | ✔️            | ✔️️                 |
@@ -100,12 +100,12 @@ the `echo-server` container on up.
 | Client / Feature    | `application/grpc-web` | `application/grpc-web-text` | Unary | Server Streams | Client+Bidi streaming |
 | ------------------- | ---------------------- | --------------------------- | ----- | -------------- | --------------------- |
 | `improbable`        | ✔️ ️                   | ❌                           | ✔️    | ✔️             | ❌                     |
-| `grpcweb`           | ✔️ ️                   | ❌                           | ✔️    | ❌ [1]          | ❌                     |
-| `grpcwebtext`       | ❌ ️                    | ✔️️                         | ✔️    | ✔️             | ❌                     |
-| `improbable-ws` [2] | ✔️ ️                   | ❌                           | ✔️    | ✔️             | ✔️️                   |
+| `grpcWeb`           | ✔️ ️                   | ❌                           | ✔️    | ❌ [1]          | ❌                     |
+| `grpcWebText`       | ❌ ️                    | ✔️️                         | ✔️    | ✔️             | ❌                     |
+| `improbableWS` [2] | ✔️ ️                   | ❌                           | ✔️    | ✔️             | ✔️️                   |
 | `grpcwsgi`          | ✔️ ️                   | ❌                           | ✔️    | ✔️             | ❌                     |
 
-1. `grpcweb` allows server streaming methods to be called, but it doesn't return data until the stream has closed.
+1. `grpcWeb` allows server streaming methods to be called, but it doesn't return data until the stream has closed.
    [(issue)](https://github.com/grpc/grpc-web/issues/344)
 2. `improbable-ws` implements a non-standard websocket transport for client-side and bi-directional streams.
 

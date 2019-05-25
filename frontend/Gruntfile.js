@@ -20,19 +20,19 @@ module.exports = function (grunt) {
 
             improbableWS: {
                 files: [
-                    { src: ['improbable-ws/*Spec.ts'], watched: false }
+                    { src: ['improbableWS/*Spec.ts'], watched: false }
                 ],
             },
 
             grpcWeb: {
                 files: [
-                    { src: ['grpcweb/*Spec.ts'], watched: false }
+                    { src: ['grpcWeb/*Spec.ts'], watched: false }
                 ],
             },
 
             grpcWebText: {
                 files: [
-                    { src: ['grpcwebtext/*Spec.ts'], watched: false }
+                    { src: ['grpcWebText/*Spec.ts'], watched: false }
                 ],
             },
         }

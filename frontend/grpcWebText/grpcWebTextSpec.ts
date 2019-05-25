@@ -10,7 +10,7 @@ import {
   ServerStreamingEchoResponse
 } from "./proto/echo_pb";
 
-import { assert } from 'chai';
+import { assert } from '../grpcWeb/node_modules/chai';
 
 var client: EchoServiceClient;
 
