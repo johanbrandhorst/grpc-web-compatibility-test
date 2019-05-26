@@ -112,3 +112,56 @@ will probably only need to do this when adding a new implementation.
 To rebuild the Envoy CI image, run `make envoy-circle-image`. If you happen to be a contributor
 you'll also be able to do `docker push public/grpcweb-testing-envoy:latest` to push the new image
 to Docker Hub.
+
+## Running tests in your local browser
+
+### Requirements
+
+`node`, `npm`.
+
+### Installation
+
+Install the test suit locally:
+
+```bash
+$ cd frontend && npm install .
+```
+
+### Running
+
+Start the proxy and server of your choice:
+
+```bash
+$ docker-compose up -d grpcwebproxy
+```
+
+This will give you a server listening on port `8080` on `localhost`.
+
+The tests are run from the `frontend` folder. Run the test of your choice via `npx`:
+
+```bash
+$ npx grunt karma:grpcWebText --grpc-host=http://localhost:8080
+```
+
+This will launch a headless Chrome instance and start running the tests in it.
+Look in the terminal you launched the tests from to see if the tests passed.
+
+To run the tests in a visual browser, edit the `browsers` part of the
+[karma config](./frontend/karma.conf.js) to `Chrome`.
+
+If you want to debug the tests, you can open the debug tab in the karma page in
+Chrome and then use your browser devtools to poke around.
+
+### Running with other browsers
+
+Install the karma launcher for the browser you want e.g. for Firefox:
+
+```bash
+$ npm install karma-firefox-launcher
+```
+
+Change the `browsers` config to `Firefox` and run the tests again:
+
+```bash
+$ npx grunt karma:grpcWebText --grpc-host=http://localhost:8080
+```
