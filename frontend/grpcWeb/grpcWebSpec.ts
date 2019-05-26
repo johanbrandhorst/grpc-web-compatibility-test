@@ -1,4 +1,5 @@
 import * as grpcWeb from "grpc-web";
+import * as assert from "assert";
 
 import { EchoServiceClient } from "./proto/EchoServiceClientPb";
 import { Duration } from "google-protobuf/google/protobuf/duration_pb";
@@ -10,8 +11,6 @@ import {
   ServerStreamingEchoResponse
 } from "./proto/echo_pb";
 
-import { assert } from 'chai';
-
 var client: EchoServiceClient;
 
 before(async () => {
@@ -20,35 +19,35 @@ before(async () => {
   client = new EchoServiceClient(host, {}, {});
 })
 
-describe('grpc client', function () {
-  it('EchoRequest', function (done) {
+describe("grpc client", function () {
+  it("EchoRequest", function (done) {
     const req = new EchoRequest();
     req.setMessage("test");
     client.echo(req, {}, function (
       err: grpcWeb.Error | null,
       resp: EchoResponse | null
     ) {
-      assert.equal(err, null);
-      assert.notEqual(resp, null);
-      assert.equal(resp!.getMessage(), "test")
+      assert(err == null);
+      assert(resp != null);
+      assert(resp!.getMessage() == "test")
       done();
     });
   });
 
-  it('EchoAbortRequest', function (done) {
+  it("EchoAbortRequest", function (done) {
     const req = new EchoRequest();
     req.setMessage("test");
     client.echoAbort(req, {}, function (
       err: grpcWeb.Error | null,
       resp: EchoResponse | null
     ) {
-      assert.equal(err!.code, grpcWeb.StatusCode.ABORTED);
-      assert.isNull(resp);
+      assert(err!.code == grpcWeb.StatusCode.ABORTED);
+      assert(resp === null);
       done();
     });
   });
 
-  it('ServerStreamingEchoRequest', function (done) {
+  it("ServerStreamingEchoRequest", function (done) {
     const req = new ServerStreamingEchoRequest();
     req.setMessageCount(5);
     var interval = new Duration();
@@ -60,21 +59,21 @@ describe('grpc client', function () {
     var recvCount = 0;
 
     srv.on("data", function (msg: ServerStreamingEchoResponse) {
-      assert(msg.getMessage() === 'test');
+      assert(msg.getMessage() == "test");
       recvCount += 1;
     });
 
     srv.on("status", function (status: grpcWeb.Status) {
-      assert.equal(status.code, grpcWeb.StatusCode.OK);
+      assert(status.code == grpcWeb.StatusCode.OK);
     });
 
     srv.on("end", function () {
-      assert.equal(recvCount, 5);
+      assert(recvCount == 5);
       done();
     });
   }).timeout(10000);
 
-  it('ServerStreamingEchoAbortRequest', function (done) {
+  it("ServerStreamingEchoAbortRequest", function (done) {
     const req = new ServerStreamingEchoRequest();
     req.setMessageCount(5);
     var interval = new Duration();
@@ -87,7 +86,8 @@ describe('grpc client', function () {
     // test if it actually happens.
 
     window.onerror = function (message, file, line, col, error) {
-      assert.include(<string>message, "b.i is not a function");
+      var msg = message as string
+      assert(msg.includes("b.i is not a function"));
       done();
       return false;
     };
