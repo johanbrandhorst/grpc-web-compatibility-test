@@ -73,9 +73,6 @@ describe('grpc client', function () {
 
     srv.on("status", function (status: Status) {
       assert(status.code == grpc.Code.OK);
-    });
-
-    srv.on("end", function () {
       assert(recvCount == 5);
       done();
     });
