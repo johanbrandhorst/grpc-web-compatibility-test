@@ -77,22 +77,19 @@ describe("grpc client", function () {
     interval.setSeconds(1);
     req.setMessageInterval(interval);
     req.setMessage("test");
-
-    // This test is expected to fail due to an unhandled exception
-    // inside gRPC-Web. We expect it to happen and only pass the
-    // test if it actually happens.
-
-    window.onerror = function (message, file, line, col, error) {
-      var msg = message as string
-      assert(msg.includes("b.i is not a function"));
-      done();
-      return false;
-    };
-
     const srv = client.serverStreamingEchoAbort(req);
 
-    srv.on("end", function () {
-      assert(false);
+    var recvCount = 0;
+
+    srv.on("data", function (msg: ServerStreamingEchoResponse) {
+      assert(msg.getMessage() == "test");
+      recvCount += 1;
     });
-  });
+
+    srv.on("status", function (status: grpcWeb.Status) {
+      assert(status.code == grpcWeb.StatusCode.ABORTED);
+      assert(recvCount < 5);
+      done();
+    });
+  }).timeout(10000);
 });
