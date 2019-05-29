@@ -5,97 +5,95 @@ import { EchoServiceClient } from "./proto/EchoServiceClientPb";
 import { Duration } from "google-protobuf/google/protobuf/duration_pb";
 
 import {
-  EchoRequest,
-  EchoResponse,
-  ServerStreamingEchoRequest,
-  ServerStreamingEchoResponse
+    EchoRequest,
+    EchoResponse,
+    ServerStreamingEchoRequest,
+    ServerStreamingEchoResponse
 } from "./proto/echo_pb";
 
 var client: EchoServiceClient;
 
 before(async () => {
-  // Set host using --grpc-host param to karma
-  const host: string = (<any>window).__karma__.config.grpcHost;
-  client = new EchoServiceClient(host, {}, {});
+    // Set host using --grpc-host param to karma
+    const host: string = (<any>window).__karma__.config.grpcHost;
+    client = new EchoServiceClient(host, {}, {});
 })
 
 describe("grpc client", function () {
-  it("EchoRequest", function (done) {
-    const req = new EchoRequest();
-    req.setMessage("test");
-    client.echo(req, {}, function (
-      err: grpcWeb.Error | null,
-      resp: EchoResponse | null
-    ) {
-      assert(err == null);
-      assert(resp != null);
-      assert(resp!.getMessage() == "test")
-      done();
-    });
-  });
-
-  it("EchoAbortRequest", function (done) {
-    const req = new EchoRequest();
-    req.setMessage("test");
-    client.echoAbort(req, {}, function (
-      err: grpcWeb.Error | null,
-      resp: EchoResponse | null
-    ) {
-      assert(err!.code == grpcWeb.StatusCode.ABORTED);
-      assert(resp === null);
-      done();
-    });
-  });
-
-  it("ServerStreamingEchoRequest", function (done) {
-    const req = new ServerStreamingEchoRequest();
-    req.setMessageCount(5);
-    var interval = new Duration();
-    interval.setSeconds(1);
-    req.setMessageInterval(interval);
-    req.setMessage("test");
-    const srv = client.serverStreamingEcho(req);
-
-    var recvCount = 0;
-
-    srv.on("data", function (msg: ServerStreamingEchoResponse) {
-      assert(msg.getMessage() == "test");
-      recvCount += 1;
+    it("EchoRequest", function (done) {
+        const req = new EchoRequest();
+        req.setMessage("test");
+        client.echo(req, {}, function (
+            err: grpcWeb.Error | null,
+            resp: EchoResponse | null
+        ) {
+            assert(err == null);
+            assert(resp != null);
+            assert(resp!.getMessage() == "test")
+            done();
+        });
     });
 
-    srv.on("status", function (status: grpcWeb.Status) {
-      assert(status.code == grpcWeb.StatusCode.OK);
+    it("EchoAbortRequest", function (done) {
+        const req = new EchoRequest();
+        req.setMessage("test");
+        client.echoAbort(req, {}, function (
+            err: grpcWeb.Error | null,
+            resp: EchoResponse | null
+        ) {
+            assert(err!.code == grpcWeb.StatusCode.ABORTED);
+            assert(resp === null);
+            done();
+        });
     });
 
-    srv.on("end", function () {
-      assert(recvCount == 5);
-      done();
+    it("ServerStreamingEchoRequest", function (done) {
+        const req = new ServerStreamingEchoRequest();
+        req.setMessageCount(5);
+        var interval = new Duration();
+        interval.setSeconds(1);
+        req.setMessageInterval(interval);
+        req.setMessage("test");
+        const srv = client.serverStreamingEcho(req);
+
+        var recvCount = 0;
+
+        srv.on("data", function (msg: ServerStreamingEchoResponse) {
+            assert(msg.getMessage() == "test");
+            recvCount += 1;
+        });
+
+        srv.on("status", function (status: grpcWeb.Status) {
+            assert(status.code == grpcWeb.StatusCode.OK);
+            assert(recvCount == 5);
+            done();
+        });
+
+    }).timeout(10000);
+
+    it("ServerStreamingEchoAbortRequest", function (done) {
+        const req = new ServerStreamingEchoRequest();
+        req.setMessageCount(5);
+        var interval = new Duration();
+        interval.setSeconds(1);
+        req.setMessageInterval(interval);
+        req.setMessage("test");
+
+        // This test is expected to fail due to an unhandled exception
+        // inside gRPC-Web. We expect it to happen and only pass the
+        // test if it actually happens.
+
+        window.onerror = function (message, file, line, col, error) {
+            var msg = message as string
+            assert(msg.includes("b.i is not a function"));
+            done();
+            return false;
+        };
+
+        const srv = client.serverStreamingEchoAbort(req);
+
+        srv.on("end", function () {
+            assert(false);
+        });
     });
-  }).timeout(10000);
-
-  it("ServerStreamingEchoAbortRequest", function (done) {
-    const req = new ServerStreamingEchoRequest();
-    req.setMessageCount(5);
-    var interval = new Duration();
-    interval.setSeconds(1);
-    req.setMessageInterval(interval);
-    req.setMessage("test");
-
-    // This test is expected to fail due to an unhandled exception
-    // inside gRPC-Web. We expect it to happen and only pass the
-    // test if it actually happens.
-
-    window.onerror = function (message, file, line, col, error) {
-      var msg = message as string
-      assert(msg.includes("b.i is not a function"));
-      done();
-      return false;
-    };
-
-    const srv = client.serverStreamingEchoAbort(req);
-
-    srv.on("end", function () {
-      assert(false);
-    });
-  });
 });
