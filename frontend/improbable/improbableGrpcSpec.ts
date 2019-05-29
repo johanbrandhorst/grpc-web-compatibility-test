@@ -87,11 +87,16 @@ describe('grpc client', function () {
     req.setMessage("test");
     const srv = client.serverStreamingEchoAbort(req);
 
-    srv.on("status", function (status: Status) {
-      assert(status.code == grpc.Code.Aborted);
+    var recvCount = 0;
+
+    srv.on("data", function (msg: ServerStreamingEchoResponse) {
+      assert(msg.getMessage() == "test");
+      recvCount += 1;
     });
 
-    srv.on("end", function () {
+    srv.on("status", function (status: Status) {
+      assert(status.code == grpc.Code.Aborted);
+      assert(recvCount < 5);
       done();
     });
   });
