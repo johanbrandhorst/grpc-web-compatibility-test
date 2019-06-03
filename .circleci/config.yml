@@ -56,10 +56,10 @@ jobs:
     docker:
       - image: circleci/python:3.7-node-browsers
 
-  xfail-grpcwsgi-improbable-chrome:
+  grpcwsgi-improbable-chrome:
     <<: *grpcwsgi-template-job
 
-  xfail-grpcwsgi-grpcWeb-chrome:
+  grpcwsgi-grpcWeb-chrome:
     <<: *grpcwsgi-template-job
 
 workflows:
@@ -77,5 +77,5 @@ workflows:
       - envoy-improbable-chrome
       - envoy-grpcWeb-chrome
       - envoy-grpcWebText-chrome
-      - xfail-grpcwsgi-improbable-chrome
-      - xfail-grpcwsgi-grpcWeb-chrome
+      - grpcwsgi-improbable-chrome
+      - grpcwsgi-grpcWeb-chrome
