@@ -268,53 +268,53 @@ DESCRIPTOR.message_types_by_name['ClientStreamingEchoRequest'] = _CLIENTSTREAMIN
 DESCRIPTOR.message_types_by_name['ClientStreamingEchoResponse'] = _CLIENTSTREAMINGECHORESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), dict(
-  DESCRIPTOR = _EMPTY,
-  __module__ = 'echo_pb2'
+Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), {
+  'DESCRIPTOR' : _EMPTY,
+  '__module__' : 'echo_pb2'
   # @@protoc_insertion_point(class_scope:grpc.gateway.testing.Empty)
-  ))
+  })
 _sym_db.RegisterMessage(Empty)
 
-EchoRequest = _reflection.GeneratedProtocolMessageType('EchoRequest', (_message.Message,), dict(
-  DESCRIPTOR = _ECHOREQUEST,
-  __module__ = 'echo_pb2'
+EchoRequest = _reflection.GeneratedProtocolMessageType('EchoRequest', (_message.Message,), {
+  'DESCRIPTOR' : _ECHOREQUEST,
+  '__module__' : 'echo_pb2'
   # @@protoc_insertion_point(class_scope:grpc.gateway.testing.EchoRequest)
-  ))
+  })
 _sym_db.RegisterMessage(EchoRequest)
 
-EchoResponse = _reflection.GeneratedProtocolMessageType('EchoResponse', (_message.Message,), dict(
-  DESCRIPTOR = _ECHORESPONSE,
-  __module__ = 'echo_pb2'
+EchoResponse = _reflection.GeneratedProtocolMessageType('EchoResponse', (_message.Message,), {
+  'DESCRIPTOR' : _ECHORESPONSE,
+  '__module__' : 'echo_pb2'
   # @@protoc_insertion_point(class_scope:grpc.gateway.testing.EchoResponse)
-  ))
+  })
 _sym_db.RegisterMessage(EchoResponse)
 
-ServerStreamingEchoRequest = _reflection.GeneratedProtocolMessageType('ServerStreamingEchoRequest', (_message.Message,), dict(
-  DESCRIPTOR = _SERVERSTREAMINGECHOREQUEST,
-  __module__ = 'echo_pb2'
+ServerStreamingEchoRequest = _reflection.GeneratedProtocolMessageType('ServerStreamingEchoRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SERVERSTREAMINGECHOREQUEST,
+  '__module__' : 'echo_pb2'
   # @@protoc_insertion_point(class_scope:grpc.gateway.testing.ServerStreamingEchoRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ServerStreamingEchoRequest)
 
-ServerStreamingEchoResponse = _reflection.GeneratedProtocolMessageType('ServerStreamingEchoResponse', (_message.Message,), dict(
-  DESCRIPTOR = _SERVERSTREAMINGECHORESPONSE,
-  __module__ = 'echo_pb2'
+ServerStreamingEchoResponse = _reflection.GeneratedProtocolMessageType('ServerStreamingEchoResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SERVERSTREAMINGECHORESPONSE,
+  '__module__' : 'echo_pb2'
   # @@protoc_insertion_point(class_scope:grpc.gateway.testing.ServerStreamingEchoResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ServerStreamingEchoResponse)
 
-ClientStreamingEchoRequest = _reflection.GeneratedProtocolMessageType('ClientStreamingEchoRequest', (_message.Message,), dict(
-  DESCRIPTOR = _CLIENTSTREAMINGECHOREQUEST,
-  __module__ = 'echo_pb2'
+ClientStreamingEchoRequest = _reflection.GeneratedProtocolMessageType('ClientStreamingEchoRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CLIENTSTREAMINGECHOREQUEST,
+  '__module__' : 'echo_pb2'
   # @@protoc_insertion_point(class_scope:grpc.gateway.testing.ClientStreamingEchoRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ClientStreamingEchoRequest)
 
-ClientStreamingEchoResponse = _reflection.GeneratedProtocolMessageType('ClientStreamingEchoResponse', (_message.Message,), dict(
-  DESCRIPTOR = _CLIENTSTREAMINGECHORESPONSE,
-  __module__ = 'echo_pb2'
+ClientStreamingEchoResponse = _reflection.GeneratedProtocolMessageType('ClientStreamingEchoResponse', (_message.Message,), {
+  'DESCRIPTOR' : _CLIENTSTREAMINGECHORESPONSE,
+  '__module__' : 'echo_pb2'
   # @@protoc_insertion_point(class_scope:grpc.gateway.testing.ClientStreamingEchoResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ClientStreamingEchoResponse)
 
 

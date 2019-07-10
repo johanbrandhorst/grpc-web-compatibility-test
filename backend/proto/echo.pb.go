@@ -9,6 +9,8 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	duration "github.com/golang/protobuf/ptypes/duration"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -629,6 +631,35 @@ type EchoServiceServer interface {
 	// client messages one by one after the client half-closes the stream.
 	// This is how an image recognition API may work.
 	HalfDuplexEcho(EchoService_HalfDuplexEchoServer) error
+}
+
+// UnimplementedEchoServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedEchoServiceServer struct {
+}
+
+func (*UnimplementedEchoServiceServer) Echo(ctx context.Context, req *EchoRequest) (*EchoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Echo not implemented")
+}
+func (*UnimplementedEchoServiceServer) EchoAbort(ctx context.Context, req *EchoRequest) (*EchoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EchoAbort not implemented")
+}
+func (*UnimplementedEchoServiceServer) NoOp(ctx context.Context, req *Empty) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NoOp not implemented")
+}
+func (*UnimplementedEchoServiceServer) ServerStreamingEcho(req *ServerStreamingEchoRequest, srv EchoService_ServerStreamingEchoServer) error {
+	return status.Errorf(codes.Unimplemented, "method ServerStreamingEcho not implemented")
+}
+func (*UnimplementedEchoServiceServer) ServerStreamingEchoAbort(req *ServerStreamingEchoRequest, srv EchoService_ServerStreamingEchoAbortServer) error {
+	return status.Errorf(codes.Unimplemented, "method ServerStreamingEchoAbort not implemented")
+}
+func (*UnimplementedEchoServiceServer) ClientStreamingEcho(srv EchoService_ClientStreamingEchoServer) error {
+	return status.Errorf(codes.Unimplemented, "method ClientStreamingEcho not implemented")
+}
+func (*UnimplementedEchoServiceServer) FullDuplexEcho(srv EchoService_FullDuplexEchoServer) error {
+	return status.Errorf(codes.Unimplemented, "method FullDuplexEcho not implemented")
+}
+func (*UnimplementedEchoServiceServer) HalfDuplexEcho(srv EchoService_HalfDuplexEchoServer) error {
+	return status.Errorf(codes.Unimplemented, "method HalfDuplexEcho not implemented")
 }
 
 func RegisterEchoServiceServer(s *grpc.Server, srv EchoServiceServer) {
