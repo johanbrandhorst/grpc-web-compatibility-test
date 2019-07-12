@@ -1,3 +1,4 @@
+// source: echo.proto
 /**
  * @fileoverview
  * @enhanceable
