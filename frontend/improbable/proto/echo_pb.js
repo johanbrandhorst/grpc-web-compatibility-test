@@ -390,9 +390,12 @@ proto.grpc.gateway.testing.EchoRequest.prototype.getMessage = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.grpc.gateway.testing.EchoRequest} returns this
+ */
 proto.grpc.gateway.testing.EchoRequest.prototype.setMessage = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -529,9 +532,12 @@ proto.grpc.gateway.testing.EchoResponse.prototype.getMessage = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.grpc.gateway.testing.EchoResponse} returns this
+ */
 proto.grpc.gateway.testing.EchoResponse.prototype.setMessage = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -544,9 +550,12 @@ proto.grpc.gateway.testing.EchoResponse.prototype.getMessageCount = function() {
 };
 
 
-/** @param {number} value */
+/**
+ * @param {number} value
+ * @return {!proto.grpc.gateway.testing.EchoResponse} returns this
+ */
 proto.grpc.gateway.testing.EchoResponse.prototype.setMessageCount = function(value) {
-  jspb.Message.setProto3IntField(this, 2, value);
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 
@@ -697,9 +706,12 @@ proto.grpc.gateway.testing.ServerStreamingEchoRequest.prototype.getMessage = fun
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.grpc.gateway.testing.ServerStreamingEchoRequest} returns this
+ */
 proto.grpc.gateway.testing.ServerStreamingEchoRequest.prototype.setMessage = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -712,9 +724,12 @@ proto.grpc.gateway.testing.ServerStreamingEchoRequest.prototype.getMessageCount 
 };
 
 
-/** @param {number} value */
+/**
+ * @param {number} value
+ * @return {!proto.grpc.gateway.testing.ServerStreamingEchoRequest} returns this
+ */
 proto.grpc.gateway.testing.ServerStreamingEchoRequest.prototype.setMessageCount = function(value) {
-  jspb.Message.setProto3IntField(this, 2, value);
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 
@@ -728,17 +743,21 @@ proto.grpc.gateway.testing.ServerStreamingEchoRequest.prototype.getMessageInterv
 };
 
 
-/** @param {?proto.google.protobuf.Duration|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Duration|undefined} value
+ * @return {!proto.grpc.gateway.testing.ServerStreamingEchoRequest} returns this
+*/
 proto.grpc.gateway.testing.ServerStreamingEchoRequest.prototype.setMessageInterval = function(value) {
-  jspb.Message.setWrapperField(this, 3, value);
+  return jspb.Message.setWrapperField(this, 3, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
+ * @return {!proto.grpc.gateway.testing.ServerStreamingEchoRequest} returns this
  */
 proto.grpc.gateway.testing.ServerStreamingEchoRequest.prototype.clearMessageInterval = function() {
-  this.setMessageInterval(undefined);
+  return this.setMessageInterval(undefined);
 };
 
 
@@ -872,9 +891,12 @@ proto.grpc.gateway.testing.ServerStreamingEchoResponse.prototype.getMessage = fu
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.grpc.gateway.testing.ServerStreamingEchoResponse} returns this
+ */
 proto.grpc.gateway.testing.ServerStreamingEchoResponse.prototype.setMessage = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -999,9 +1021,12 @@ proto.grpc.gateway.testing.ClientStreamingEchoRequest.prototype.getMessage = fun
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.grpc.gateway.testing.ClientStreamingEchoRequest} returns this
+ */
 proto.grpc.gateway.testing.ClientStreamingEchoRequest.prototype.setMessage = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -1126,9 +1151,12 @@ proto.grpc.gateway.testing.ClientStreamingEchoResponse.prototype.getMessageCount
 };
 
 
-/** @param {number} value */
+/**
+ * @param {number} value
+ * @return {!proto.grpc.gateway.testing.ClientStreamingEchoResponse} returns this
+ */
 proto.grpc.gateway.testing.ClientStreamingEchoResponse.prototype.setMessageCount = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 
