@@ -42,6 +42,12 @@ Test various implementations of gRPC-Web Clients with various implementations of
   The same as `grpcwebproxy`, but running as an in-process proxy to a Go gRPC
   server.
 
+- `akkagrpc`
+
+  An example server built using the Akka gRPC library, which
+  [supports gRPC-Web natively](https://doc.akka.io/docs/akka-grpc/current/server/grpc-web.html)
+  without a proxy, available at https://github.com/akka/akka-grpc.
+
 - `envoy`
 
   The Envoy Proxy HTTP filter implementation created for the `grpc/grpc-web` project,
@@ -78,6 +84,7 @@ the `echo-server` container on up.
 
 | Proxy / Client | `improbable` | `grpcWeb` | `grpcWebText` | `improbableWS` [1] |
 | -------------- | ------------ | --------- | ------------- | ------------------- |
+| `akkagrpc`     | ✔️           | ✔️️       | ✔️            | ❌                   |
 | `envoy`        | ✔️           | ✔️️       | ✔️            | ❌                   |
 | `grpcwebproxy` | ✔️️          | ✔️        | ✔️            | ✔️️                 |
 | `inprocess`    | ✔️️          | ✔️        | ✔️            | ✔️️                 |

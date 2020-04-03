@@ -42,6 +42,12 @@ services:
       dockerfile: ./proxy/grpcwsgi/Dockerfile
     ports:
       - '8080:8080'
+  akkagrpc:
+    build:
+      context: ./
+      dockerfile: ./proxy/akkagrpc/Dockerfile
+    ports:
+      - '8080:8080'
   frontend:
     build:
       context: ./frontend
