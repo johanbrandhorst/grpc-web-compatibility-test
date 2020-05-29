@@ -1,7 +1,9 @@
 # grpc-web-compatibility-test
 [![CircleCI](https://img.shields.io/circleci/project/github/johanbrandhorst/grpc-web-compatibility-test/master.svg?style=flat-square)](https://circleci.com/gh/johanbrandhorst/grpc-web-compatibility-test)
 
-Test various implementations of gRPC-Web Clients with various implementations of gRPC-Web proxies
+# This repository has been superceded by the official grpc-web interop tests, which can be found [here](https://github.com/grpc/grpc-web/blob/master/interop-test-descriptions.md).
+
+Test various implementations of gRPC-Web Clients with various implementations of gRPC-Web proxies.
 
 ## Definitions
 
