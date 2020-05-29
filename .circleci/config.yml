@@ -10,7 +10,7 @@ jobs:
   golang-template-job: &golang-template-job
     <<: *template-job
     docker:
-      - image: circleci/golang:latest-node-browsers
+      - image: circleci/golang:1-node-browsers
     working_directory: /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
 
   inprocess-improbable-chrome:
