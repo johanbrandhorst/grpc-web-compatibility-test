@@ -18,7 +18,7 @@ export namespace Empty {
 
 export class EchoRequest extends jspb.Message {
   getMessage(): string;
-  setMessage(value: string): void;
+  setMessage(value: string): EchoRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EchoRequest.AsObject;
@@ -36,10 +36,10 @@ export namespace EchoRequest {
 
 export class EchoResponse extends jspb.Message {
   getMessage(): string;
-  setMessage(value: string): void;
+  setMessage(value: string): EchoResponse;
 
   getMessageCount(): number;
-  setMessageCount(value: number): void;
+  setMessageCount(value: number): EchoResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EchoResponse.AsObject;
@@ -58,15 +58,15 @@ export namespace EchoResponse {
 
 export class ServerStreamingEchoRequest extends jspb.Message {
   getMessage(): string;
-  setMessage(value: string): void;
+  setMessage(value: string): ServerStreamingEchoRequest;
 
   getMessageCount(): number;
-  setMessageCount(value: number): void;
+  setMessageCount(value: number): ServerStreamingEchoRequest;
 
   getMessageInterval(): google_protobuf_duration_pb.Duration | undefined;
-  setMessageInterval(value?: google_protobuf_duration_pb.Duration): void;
+  setMessageInterval(value?: google_protobuf_duration_pb.Duration): ServerStreamingEchoRequest;
   hasMessageInterval(): boolean;
-  clearMessageInterval(): void;
+  clearMessageInterval(): ServerStreamingEchoRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ServerStreamingEchoRequest.AsObject;
@@ -86,7 +86,7 @@ export namespace ServerStreamingEchoRequest {
 
 export class ServerStreamingEchoResponse extends jspb.Message {
   getMessage(): string;
-  setMessage(value: string): void;
+  setMessage(value: string): ServerStreamingEchoResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ServerStreamingEchoResponse.AsObject;
@@ -104,7 +104,7 @@ export namespace ServerStreamingEchoResponse {
 
 export class ClientStreamingEchoRequest extends jspb.Message {
   getMessage(): string;
-  setMessage(value: string): void;
+  setMessage(value: string): ClientStreamingEchoRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ClientStreamingEchoRequest.AsObject;
@@ -122,7 +122,7 @@ export namespace ClientStreamingEchoRequest {
 
 export class ClientStreamingEchoResponse extends jspb.Message {
   getMessageCount(): number;
-  setMessageCount(value: number): void;
+  setMessageCount(value: number): ClientStreamingEchoResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ClientStreamingEchoResponse.AsObject;
