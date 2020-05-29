@@ -59,7 +59,7 @@ jobs:
   grpcwsgi-improbable-chrome:
     <<: *grpcwsgi-template-job
 
-  grpcwsgi-grpcWeb-chrome:
+  xfail-grpcwsgi-grpcWeb-chrome:
     <<: *grpcwsgi-template-job
 
 workflows:
@@ -78,4 +78,4 @@ workflows:
       - envoy-grpcWeb-chrome
       - envoy-grpcWebText-chrome
       - grpcwsgi-improbable-chrome
-      - grpcwsgi-grpcWeb-chrome
+      - xfail-grpcwsgi-grpcWeb-chrome
