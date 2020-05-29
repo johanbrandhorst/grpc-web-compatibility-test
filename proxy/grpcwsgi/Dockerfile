@@ -2,7 +2,7 @@ FROM python:3.7
 
 WORKDIR /usr/src/app
 
-RUN pip install grpcio-tools grpcWSGI
+RUN pip install grpcio-tools sonora
 
 COPY . .
 
