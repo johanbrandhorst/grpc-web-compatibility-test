@@ -1,10 +1,11 @@
 FROM golang:latest
 
-COPY . /go/src/github.com/johanbrandhorst/grpc-web-compatibility-test
+COPY . /src
 
 ENV CGO_ENABLED 0
+ENV GO111MODULE on
 
-RUN go build -o /backend github.com/johanbrandhorst/grpc-web-compatibility-test/backend
+RUN cd /src && go build -o /backend ./backend
 
 FROM scratch
 

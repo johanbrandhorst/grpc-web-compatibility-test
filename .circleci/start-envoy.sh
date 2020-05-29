@@ -2,7 +2,7 @@
 set -e
 
 go build -o ./server github.com/johanbrandhorst/grpc-web-compatibility-test/backend
-go build -o ./grpcwebproxy ./vendor/github.com/improbable-eng/grpc-web/go/grpcwebproxy
+go build -o ./grpcwebproxy github.com/improbable-eng/grpc-web/go/grpcwebproxy
 
 ./server --grpc_port=9090 &
 
