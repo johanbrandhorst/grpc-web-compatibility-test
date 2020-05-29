@@ -7,6 +7,10 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 
+/* eslint-disable */
+// @ts-nocheck
+
+
 import * as grpcWeb from 'grpc-web';
 
 import * as google_protobuf_duration_pb from 'google-protobuf/google/protobuf/duration_pb';
@@ -49,16 +53,34 @@ export class EchoServiceClient {
 
   echo(
     request: EchoRequest,
+    metadata: grpcWeb.Metadata | null): Promise<EchoResponse>;
+
+  echo(
+    request: EchoRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
+               response: EchoResponse) => void): grpcWeb.ClientReadableStream<EchoResponse>;
+
+  echo(
+    request: EchoRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
                response: EchoResponse) => void) {
-    return this.client_.rpcCall(
-      this.hostname_ +
-        '/grpc.gateway.testing.EchoService/Echo',
-      request,
-      metadata || {},
-      this.methodInfoEcho,
-      callback);
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/grpc.gateway.testing.EchoService/Echo',
+        request,
+        metadata || {},
+        this.methodInfoEcho,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/grpc.gateway.testing.EchoService/Echo',
+    request,
+    metadata || {},
+    this.methodInfoEcho);
   }
 
   methodInfoEchoAbort = new grpcWeb.AbstractClientBase.MethodInfo(
@@ -71,16 +93,34 @@ export class EchoServiceClient {
 
   echoAbort(
     request: EchoRequest,
+    metadata: grpcWeb.Metadata | null): Promise<EchoResponse>;
+
+  echoAbort(
+    request: EchoRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
+               response: EchoResponse) => void): grpcWeb.ClientReadableStream<EchoResponse>;
+
+  echoAbort(
+    request: EchoRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
                response: EchoResponse) => void) {
-    return this.client_.rpcCall(
-      this.hostname_ +
-        '/grpc.gateway.testing.EchoService/EchoAbort',
-      request,
-      metadata || {},
-      this.methodInfoEchoAbort,
-      callback);
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/grpc.gateway.testing.EchoService/EchoAbort',
+        request,
+        metadata || {},
+        this.methodInfoEchoAbort,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/grpc.gateway.testing.EchoService/EchoAbort',
+    request,
+    metadata || {},
+    this.methodInfoEchoAbort);
   }
 
   methodInfoNoOp = new grpcWeb.AbstractClientBase.MethodInfo(
@@ -93,16 +133,34 @@ export class EchoServiceClient {
 
   noOp(
     request: Empty,
+    metadata: grpcWeb.Metadata | null): Promise<Empty>;
+
+  noOp(
+    request: Empty,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
+               response: Empty) => void): grpcWeb.ClientReadableStream<Empty>;
+
+  noOp(
+    request: Empty,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
                response: Empty) => void) {
-    return this.client_.rpcCall(
-      this.hostname_ +
-        '/grpc.gateway.testing.EchoService/NoOp',
-      request,
-      metadata || {},
-      this.methodInfoNoOp,
-      callback);
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/grpc.gateway.testing.EchoService/NoOp',
+        request,
+        metadata || {},
+        this.methodInfoNoOp,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/grpc.gateway.testing.EchoService/NoOp',
+    request,
+    metadata || {},
+    this.methodInfoNoOp);
   }
 
   methodInfoServerStreamingEcho = new grpcWeb.AbstractClientBase.MethodInfo(
